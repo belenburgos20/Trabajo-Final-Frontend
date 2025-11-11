@@ -1,0 +1,5 @@
+[
+  { "id": 1, "nombre": "Bomba hidráulica", "precio": 12000 },
+  { "id": 2, "nombre": "Cilindro de pistón", "precio": 8000 },
+  { "id": 3, "nombre": "Manguera reforzada", "precio": 3000 }
+]

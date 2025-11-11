@@ -1,0 +1,4 @@
+[
+  { "id": 1, "cliente": "Juan Pérez", "estado": "pendiente", "total": 25000 },
+  { "id": 2, "cliente": "María López", "estado": "aprobado", "total": 48000 }
+]
