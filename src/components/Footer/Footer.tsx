@@ -1,0 +1,14 @@
+export default function Footer() {
+  return (
+    <footer
+      style={{
+        padding: '1rem',
+        borderTop: '1px solid #ddd',
+        marginTop: '2rem',
+        textAlign: 'center',
+      }}
+    >
+      <small>Oleohidráulica Guardese — Proyecto Final</small>
+    </footer>
+  );
+}

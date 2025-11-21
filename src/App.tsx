@@ -15,17 +15,16 @@ import Dashboard from './pages/Admin/Dashboard';
 import ClientesAdmin from './pages/Admin/Clientes';
 import PresupuestosAdmin from './pages/Admin/Presupuestos';
 import ProductosAdmin from './pages/Admin/Productos';
+import NotFound from './pages/General/NotFound';
+
+import PublicLayout from './layouts/PublicLayout';
+
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/*Portal General*/}
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-
         {/*Portal Clientes*/}
         <Route path="/cliente/carrito" element={<Carrito />} />
         <Route path="/cliente/perfil" element={<Perfil />} />
@@ -33,10 +32,23 @@ function App() {
         <Route path="/cliente/productos" element={<ProductosCliente />} />
 
         {/*Portal Administrador*/}
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/clientes" element={<ClientesAdmin />} />
-        <Route path="/admin/presupuestos" element={<PresupuestosAdmin />} />
-        <Route path="/admin/productos" element={<ProductosAdmin />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/clientes" element={<ClientesAdmin />} />
+          <Route path="/admin/presupuestos" element={<PresupuestosAdmin />} />
+          <Route path="/admin/productos" element={<ProductosAdmin />} />
+        </Route>
+
+        {/*Portal General con layout público*/}
+        <Route element={<PublicLayout />}>
+          <Route index element={<Home />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+
+        {/*NotFound*/}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
