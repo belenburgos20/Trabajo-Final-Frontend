@@ -1,45 +1,56 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from './pages/General/Home';
-import Contact from './pages/General/Contact';
-import Login from './pages/General/Login';
-import Register from './pages/General/Register';
+// Layouts
+import GeneralLayout from "./layouts/GeneralLayout/Index";
+import ClientesLayout from "./layouts/ClientesLayout/Index";
+import AdminLayout from "./layouts/AdminLayout/Index";
 
-import Carrito from './pages/Clientes/Carrito';
-import Perfil from './pages/Clientes/Perfil';
-import PresupuestosCliente from './pages/Clientes/Presupuestos';
-import ProductosCliente from './pages/Clientes/Productos';
+// General pages
+import Home from "./pages/General/Home";
+import Contact from "./pages/General/Contact";
+import Login from "./pages/General/Login";
+import Register from "./pages/General/Register";
 
-import Dashboard from './pages/Admin/Dashboard';
-import ClientesAdmin from './pages/Admin/Clientes';
-import PresupuestosAdmin from './pages/Admin/Presupuestos';
-import ProductosAdmin from './pages/Admin/Productos';
+// Clientes pages
+import Perfil from "./pages/Clientes/Perfil";
+import Productos from "./pages/Clientes/Productos";
+import Carrito from "./pages/Clientes/Carrito";
+import Presupuestos from "./pages/Clientes/Presupuestos";
 
-function App() {
+// Admin pages
+import Dashboard from "./pages/Admin/Dashboard";
+import AdminClientes from "./pages/Admin/Clientes";
+import AdminProductos from "./pages/Admin/Productos";
+import AdminPresupuestos from "./pages/Admin/Presupuestos";
+
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/*Portal General*/}
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* General */}
+        <Route element={<GeneralLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
 
-        {/*Portal Clientes*/}
-        <Route path="/cliente/carrito" element={<Carrito />} />
-        <Route path="/cliente/perfil" element={<Perfil />} />
-        <Route path="/cliente/presupuestos" element={<PresupuestosCliente />} />
-        <Route path="/cliente/productos" element={<ProductosCliente />} />
+        {/* Portal Clientes */}
+        <Route path="/clientes" element={<ClientesLayout />}>
+          <Route path="perfil" element={<Perfil />} />
+          <Route path="productos" element={<Productos />} />
+          <Route path="carrito" element={<Carrito />} />
+          <Route path="presupuestos" element={<Presupuestos />} />
+        </Route>
 
-        {/*Portal Administrador*/}
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/clientes" element={<ClientesAdmin />} />
-        <Route path="/admin/presupuestos" element={<PresupuestosAdmin />} />
-        <Route path="/admin/productos" element={<ProductosAdmin />} />
+        {/* Portal Admin */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="clientes" element={<AdminClientes />} />
+          <Route path="productos" element={<AdminProductos />} />
+          <Route path="presupuestos" element={<AdminPresupuestos />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
