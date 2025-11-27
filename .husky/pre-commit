@@ -1,11 +1,2 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# Formatear el código automáticamente con Prettier
-npx prettier --write .
-
-# Ejecutar ESLint y corregir errores automáticamente
+#!/usr/bin/env sh
 npm run lint:fix
-
-# Opcional: avisar que todo está listo
-echo "Código formateado y lint corregido listo para commit ✅"

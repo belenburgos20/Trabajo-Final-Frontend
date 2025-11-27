@@ -28,7 +28,7 @@ export default function Login() {
       const user = await res.json();
       localStorage.setItem('user', JSON.stringify(user));
       navigate('/clientes/productos');
-    } catch (err: any) {
+    } catch (err: React.ChangeEvent<HTMLInputElement>) {
       console.error(err);
       setError(err.message || 'Credenciales inválidas');
     } finally {

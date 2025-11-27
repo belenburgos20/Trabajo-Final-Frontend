@@ -32,7 +32,7 @@ export default function Register() {
 
       await crearCliente(data);
       navigate('/login');
-    } catch (err: any) {
+    } catch (err: React.ChangeEvent<HTMLInputElement>) {
       console.error(err);
       setError(err.message || 'Error al registrar');
     } finally {
