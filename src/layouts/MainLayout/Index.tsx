@@ -1,32 +1,25 @@
-import { ReactNode } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import { type ReactNode } from 'react';
+import Header from '../../components/Header/Index';
+import Footer from '../../components/Footer/Index';
 
 type MainLayoutProps = {
   children: ReactNode;
-  sidebar?: ReactNode; // Sidebar opcional
+  sidebar?: ReactNode;
 };
 
-function MainLayout({ children, sidebar }: MainLayoutProps) {
+const MainLayout = ({ children, sidebar }: MainLayoutProps) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <div className="App d-flex flex-column min-vh-100">
       <Header />
 
-      <div style={{ display: "flex", flex: 1 }}>
-        {sidebar && (
-          <aside style={{ width: "220px", borderRight: "1px solid #ddd" }}>
-            {sidebar}
-          </aside>
-        )}
-
-        <main style={{ flex: 1, padding: "20px" }}>
-          {children}
-        </main>
+      <div className="d-flex flex-1 overflow-hidden">
+        {sidebar && <aside className="client-sidebar">{sidebar}</aside>}
+        <main className="client-content p-4 overflow-auto">{children}</main>
       </div>
 
       <Footer />
     </div>
   );
-}
+};
 
 export default MainLayout;
