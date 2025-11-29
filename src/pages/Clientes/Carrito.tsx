@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { crearPresupuesto } from '../../services/presupuestosService';
+import { crearPresupuesto } from '../../services/presupestosService';
 import type { NuevoPresupuesto } from '../../types/Presupuesto';
 import type { NuevoDetallePresupuesto } from '../../types/DetallePresupuesto';
 type CartItem = { id?: number; codigo?: string; nombre: string; precio: number; cantidad: number };

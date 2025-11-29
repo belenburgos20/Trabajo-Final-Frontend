@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPresupuestosPorUsuario } from '../../services/presupuestosService';
+import { getPresupuestosPorUsuario } from '../../services/presupestosService';
 import PresupuestoCard from '../../components/PresupuestoCard/Index';
 import type { Presupuesto } from '../../types/Presupuesto';
 
