@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { crearPresupuesto } from '../../services/presupuestosService';
-
+import type { NuevoPresupuesto } from '../../types/Presupuesto';
+import type { NuevoDetallePresupuesto } from '../../types/DetallePresupuesto';
 type CartItem = { id?: number; codigo?: string; nombre: string; precio: number; cantidad: number };
 
 export default function Carrito() {
@@ -36,23 +37,32 @@ export default function Carrito() {
     setMessage(null);
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const payload = {
-        usuarioId: user?.id ?? null,
+
+      const detalle: NuevoDetallePresupuesto[] = carrito.map((p) => ({
+        idProducto: p.id ?? 0,
+        cantidad: p.cantidad,
+        precio: p.precio,
+      }));
+
+      const payload: NuevoPresupuesto = {
+        idUsuario: user?.id ?? 0, // ajusta según tu backend
         fecha: new Date().toISOString(),
-        productos: carrito.map((p) => ({
-          codigo: p.codigo,
-          cantidad: p.cantidad,
-          precio: p.precio,
-        })),
-        total: carrito.reduce((s, it) => s + it.precio * it.cantidad, 0),
+        fechaEntrega: new Date().toISOString(), // o calcula otra fecha
+        estado: 'pendiente', // o el valor que tu backend requiera
+        detalle,
       };
-      await crearPresupuesto(payload as any);
+
+      await crearPresupuesto(payload);
       setMessage('Presupuesto enviado');
       localStorage.removeItem('carrito');
       setCarrito([]);
-    } catch (err: any) {
-      console.error(err);
-      setMessage(err.message || 'Error al enviar presupuesto');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err);
+        setMessage(err.message);
+      } else {
+        setMessage('Error desconocido al enviar presupuesto');
+      }
     } finally {
       setSending(false);
     }

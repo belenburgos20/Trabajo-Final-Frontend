@@ -16,11 +16,17 @@ export default function ProductosList() {
         const data = await getProductos();
         setProductos(data);
 
-        const stored = JSON.parse(localStorage.getItem('carrito') || '[]');
+        const stored = JSON.parse(localStorage.getItem('carrito') || '[]') as (Producto & {
+          cantidad: number;
+        })[];
         setCarrito(stored);
-      } catch (err: any) {
-        console.error(err);
-        setError(err.message || 'Error cargando productos');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error(err);
+          setError(err.message);
+        } else {
+          setError('Error desconocido al cargar productos');
+        }
       } finally {
         setLoading(false);
       }

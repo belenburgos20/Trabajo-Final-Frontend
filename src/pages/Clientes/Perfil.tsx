@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getClienteById, actualizarCliente } from '../../services/clientesService';
+import type { Cliente } from '../../types/Cliente';
 
 export default function Perfil() {
-  const [usuario, setUsuario] = useState<any>(null);
+  const [usuario, setUsuario] = useState<Cliente | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -11,10 +12,10 @@ export default function Perfil() {
     (async () => {
       setLoading(true);
       try {
-        const stored = JSON.parse(localStorage.getItem('user') || '{}');
+        const stored: Partial<Cliente> = JSON.parse(localStorage.getItem('user') || '{}');
         const id = stored?.id;
         if (!id) {
-          setUsuario(stored);
+          setUsuario(stored as Cliente);
           setLoading(false);
           return;
         }
@@ -29,7 +30,7 @@ export default function Perfil() {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setUsuario({ ...usuario, [e.target.name]: e.target.value });
+    setUsuario((prev) => (prev ? { ...prev, [e.target.name]: e.target.value } : prev));
 
   const guardar = async () => {
     if (!usuario) return;
@@ -40,9 +41,13 @@ export default function Perfil() {
       setUsuario(updated);
       localStorage.setItem('user', JSON.stringify(updated));
       setMessage('Datos actualizados');
-    } catch (err: any) {
-      console.error(err);
-      setMessage(err.message || 'Error guardando');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err);
+        setMessage(err.message);
+      } else {
+        setMessage('Error desconocido al guardar');
+      }
     } finally {
       setSaving(false);
     }
@@ -78,17 +83,6 @@ export default function Perfil() {
               className="form-control"
             />
           </div>
-
-          <div>
-            <label className="form-label">Apellido</label>
-            <input
-              name="apellido"
-              value={usuario.apellido ?? ''}
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
-
           <div>
             <label className="form-label">Email</label>
             <input

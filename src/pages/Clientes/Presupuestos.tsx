@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { getPresupuestosPorUsuario } from '../../services/presupuestosService';
 import PresupuestoCard from '../../components/PresupuestoCard/Index';
+import type { Presupuesto } from '../../types/Presupuesto';
 
 export default function PresupuestosHistorial() {
-  const [historial, setHistorial] = useState<any[]>([]);
+  const [historial, setHistorial] = useState<Presupuesto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,14 +21,21 @@ export default function PresupuestosHistorial() {
         }
         const data = await getPresupuestosPorUsuario(String(id));
         setHistorial(data);
-      } catch (err: any) {
-        console.error(err);
-        setError(err.message || 'Error al obtener historiales');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error(err);
+          setError(err.message);
+        } else {
+          setError('Error desconocido al obtener historiales');
+        }
       } finally {
         setLoading(false);
       }
     })();
   }, []);
+
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="main-content">
