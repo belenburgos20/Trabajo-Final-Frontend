@@ -49,7 +49,7 @@ export default function PresupuestosHistorial() {
         )}
         <div className="d-flex flex-column gap-3">
           {historial.map((p) => (
-            <PresupuestoCard key={p.id} presupuesto={p} />
+            <PresupuestoCard key={p.idPresupuesto} presupuesto={p} />
           ))}
         </div>
       </section>
