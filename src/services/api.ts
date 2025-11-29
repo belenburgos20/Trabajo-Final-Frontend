@@ -1,7 +1,8 @@
-/*const API_URL = "http://localhost:3000/api" // cambiar luego por Render o mockapi
+import axios from 'axios';
 
-export const fetchData = async (endpoint: string) => {
-  const res = await fetch(`${API_URL}/${endpoint}`)
-  return res.json()
-}
-*/
+export const api = axios.create({
+  baseURL: 'http://localhost:3000', // Cambiar cuando tengan backend real
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
