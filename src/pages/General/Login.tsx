@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login as loginService } from '../../services/authService';
 import { AppContext } from '../../context/AppContext';
+import type { Cliente } from '../../types/Cliente';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -24,18 +25,20 @@ export default function Login() {
       try {
         if (appCtx && appCtx.setUser) {
           const u = {
-            id: String((user as any).id),
-            name: (user as any).nombre || (user as any).name,
-            email: (user as any).email,
-            esAdmin: (user as any).esAdmin || false,
+            id: String((user as Cliente).id),
+            name: (user as Cliente).nombre || (user as Cliente).name,
+            email: (user as Cliente).email,
+            esAdmin: (user as Cliente).esAdmin || false,
           };
           appCtx.setUser(u);
         }
-      } catch (e) {}
+      } catch {
+        /* non-critical */
+      }
       navigate('/clientes/productos');
-    } catch (err: React.ChangeEvent<HTMLInputElement>) {
+    } catch (err: unknown) {
       console.error(err);
-      const message = (err as any)?.message || 'Credenciales inválidas';
+      const message = err instanceof Error ? err.message : 'Credenciales inválidas';
       setError(message);
     } finally {
       setLoading(false);
@@ -45,7 +48,6 @@ export default function Login() {
   return (
     <div className="main-content">
       <section className="section mx-auto" style={{ maxWidth: '400px' }}>
-        {' '}
         <h1 className="text-primary mb-4 text-center">Ingresar</h1>
         <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
           <input

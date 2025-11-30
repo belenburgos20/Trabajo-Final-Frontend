@@ -1,6 +1,8 @@
 import type { Producto, NuevoProducto, UpdateProducto } from '../types/Producto';
 import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto } from '../types/Presupuesto';
 import type { Cliente, NuevoCliente, UpdateCliente } from '../types/Cliente';
+import type { Categoria } from '../types/Categoria';
+import type { DetallePresupuesto } from '../types/DetallePresupuesto';
 
 let productosCache: Producto[] | null = null;
 let presupuestosCache: Presupuesto[] | null = null;
@@ -45,7 +47,8 @@ export async function getProductoByCodigoMock(codigo: string): Promise<Producto 
   const productos = await loadProductos();
   // soporte codigo o idProducto
   const codigoNum = Number(codigo);
-  return productos.find((p) => p.idProducto === codigoNum || String((p as any).codigo) === codigo);
+  type Ext = Producto & { codigo?: string };
+  return productos.find((p) => p.idProducto === codigoNum || String((p as Ext).codigo) === codigo);
 }
 
 export async function getProductosPorCategoriaMock(idCategoria: string): Promise<Producto[]> {
@@ -66,7 +69,7 @@ export async function crearProductoMock(data: NuevoProducto): Promise<Producto> 
     idProducto: productos.length ? Math.max(...productos.map((p) => p.idProducto)) + 1 : 1,
     nombre: data.nombre,
     descripcion: data.descripcion || '',
-    idCategoria: { idCategoria: data.idCategoria as any, nombre: 'Sin categoría' } as any,
+    idCategoria: { idCategoria: data.idCategoria, nombre: 'Sin categoría' } as Categoria,
     stock: data.stock || 0,
     precio: data.precio || 0,
     imagen: '',
@@ -75,10 +78,16 @@ export async function crearProductoMock(data: NuevoProducto): Promise<Producto> 
   return newProducto;
 }
 
-export async function actualizarProductoMock(codigo: string, data: UpdateProducto): Promise<Producto | null> {
+export async function actualizarProductoMock(
+  codigo: string,
+  data: UpdateProducto
+): Promise<Producto | null> {
   const productos = await loadProductos();
   const codigoNum = Number(codigo);
-  const idx = productos.findIndex((p) => p.idProducto === codigoNum || String((p as any).codigo) === codigo);
+  type Ext = Producto & { codigo?: string };
+  const idx = productos.findIndex(
+    (p) => p.idProducto === codigoNum || String((p as Ext).codigo) === codigo
+  );
   if (idx === -1) return null;
   const cur = productos[idx];
   const updated = { ...cur, ...data } as Producto;
@@ -89,7 +98,10 @@ export async function actualizarProductoMock(codigo: string, data: UpdateProduct
 export async function eliminarProductoMock(codigo: string): Promise<{ message: string }> {
   const productos = await loadProductos();
   const codigoNum = Number(codigo);
-  const idx = productos.findIndex((p) => p.idProducto === codigoNum || String((p as any).codigo) === codigo);
+  type Ext = Producto & { codigo?: string };
+  const idx = productos.findIndex(
+    (p) => p.idProducto === codigoNum || String((p as Ext).codigo) === codigo
+  );
   if (idx === -1) throw new Error('Producto no encontrado');
   productos.splice(idx, 1);
   return { message: 'Producto eliminado' };
@@ -125,11 +137,13 @@ export async function getPresupuestosPorEstadoMock(estado: string): Promise<Pres
 export async function crearPresupuestoMock(data: NuevoPresupuesto): Promise<Presupuesto> {
   const presupuestos = await loadPresupuestos();
   const newPresupuesto: Presupuesto = {
-    idPresupuesto: presupuestos.length ? Math.max(...presupuestos.map((p) => p.idPresupuesto)) + 1 : 1,
+    idPresupuesto: presupuestos.length
+      ? Math.max(...presupuestos.map((p) => p.idPresupuesto)) + 1
+      : 1,
     idUsuario: data.idUsuario,
     fecha: data.fecha,
-    detalle: data.detalle as any,
-    montoTotal: (data.detalle as any[]).reduce((acc: number, d: any) => acc + d.precio * d.cantidad, 0),
+    detalle: data.detalle as unknown as DetallePresupuesto[],
+    montoTotal: data.detalle.reduce((acc, d) => acc + (d.precio ?? 0) * (d.cantidad ?? 0), 0),
     fechaEntrega: data.fechaEntrega,
     estado: data.estado,
   } as Presupuesto;
@@ -137,7 +151,10 @@ export async function crearPresupuestoMock(data: NuevoPresupuesto): Promise<Pres
   return newPresupuesto;
 }
 
-export async function actualizarPresupuestoMock(id: string, data: UpdatePresupuesto): Promise<Presupuesto | null> {
+export async function actualizarPresupuestoMock(
+  id: string,
+  data: UpdatePresupuesto
+): Promise<Presupuesto | null> {
   const presupuestos = await loadPresupuestos();
   const idNum = Number(id);
   const idx = presupuestos.findIndex((p) => p.idPresupuesto === idNum);
@@ -173,7 +190,10 @@ export async function crearClienteMock(data: NuevoCliente): Promise<Cliente> {
   return newCliente;
 }
 
-export async function actualizarClienteMock(id: number, data: UpdateCliente): Promise<Cliente | null> {
+export async function actualizarClienteMock(
+  id: number,
+  data: UpdateCliente
+): Promise<Cliente | null> {
   const clientes = await loadClientes();
   const idx = clientes.findIndex((c) => c.id === id);
   if (idx === -1) return null;

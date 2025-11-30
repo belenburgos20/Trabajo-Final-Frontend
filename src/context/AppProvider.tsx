@@ -22,7 +22,9 @@ export function AppProvider({ children }: AppProviderProps) {
         };
         setUser(u);
       }
-    } catch (e) {}
+    } catch {
+      /* ignore JSON parse errors */
+    }
   }, []);
 
   const value: AppContextType = { user, setUser };

@@ -7,21 +7,21 @@ interface Credentials {
   password: string;
 }
 
-export async function login(credentials: { email: string; password: string }) {
+export async function login(credentials: Credentials): Promise<Cliente> {
   if (USE_MOCKS) {
     const clientes = await mock.listarClientesMock();
-    const user = (clientes as Cliente[]).find(
-      (c: any) => c.email === credentials.email && c.contraseña === credentials.password
+    const user = clientes.find(
+      (c) => c.email === credentials.email && c.contraseña === credentials.password
     );
     if (!user) throw new Error('Credenciales inválidas');
-    return user;
+    return user as Cliente;
   }
 
   const res = await axios.post('/auth/login', {
     email: credentials.email,
     password: credentials.password,
   });
-  return res.data;
+  return res.data as Cliente;
 }
 
 export async function logout() {

@@ -9,7 +9,9 @@ export default function Header() {
   const handleLogout = () => {
     try {
       localStorage.removeItem('user');
-    } catch (e) {}
+    } catch {
+      /* ignore */
+    }
     if (appCtx && appCtx.setUser) appCtx.setUser(null);
     navigate('/');
   };
