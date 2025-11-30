@@ -12,6 +12,11 @@ const ClientesLayout = () => {
     return <Navigate to="/login" replace />;
   }
 
+  // si el usuario es admin, redirigir al dashboard admin
+  if (appCtx.user.esAdmin) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
   return (
     <div className="App d-flex flex-column min-vh-100">
       <Header />

@@ -6,16 +6,18 @@
 
 .main-content {
   flex: 1;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: var(--spacing-lg) 0;
+}
+
+.page {
+  padding: var(--spacing-lg) 0;
 }
 
 .section {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   padding: 20px;
-  background-color: #f4f4f4;
-  border-radius: 8px;
+  background: var(--surface);
+  border-radius: 12px;
 }
 
 .card-grid {
@@ -28,23 +30,23 @@
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 header.App-header {
-  background-color: #0d3b66;
+  background: linear-gradient(90deg, var(--primary), #0a2f58);
   color: #fff;
-  padding: 15px 20px;
+  padding: 18px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-footer.App-footer {
-  background-color: #0d3b66;
+.footer {
+  background: var(--primary);
   color: #fff;
-  padding: 15px 20px;
+  padding: 18px 20px;
   text-align: center;
 }
 
@@ -53,17 +55,18 @@ footer.App-footer {
 }
 
 .client-sidebar {
-  width: 220px;
+  width: 240px;
   min-height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  padding-top: 70px;
+  padding-top: 80px;
+  background: #fbfdff;
 }
 
 .client-content {
-  margin-left: 240px;
-  padding: 20px;
+  margin-left: 260px;
+  padding: 28px;
 }
 
 @media (max-width: 768px) {
@@ -73,11 +76,9 @@ footer.App-footer {
     min-height: auto;
     padding-top: 0;
   }
-
   .client-content {
     margin-left: 0;
   }
-
   .card-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }

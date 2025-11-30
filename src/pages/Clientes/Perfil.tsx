@@ -55,67 +55,70 @@ export default function Perfil() {
 
   if (loading)
     return (
-      <div className="main-content">
-        {' '}
-        <section className="section text-center">Cargando...</section>{' '}
+      <div className="main-content page">
+        <div className="container">
+          <section className="section text-center">Cargando...</section>
+        </div>
       </div>
     );
   if (!usuario)
     return (
-      <div className="main-content">
-        {' '}
-        <section className="section text-center">No se encontró usuario.</section>{' '}
+      <div className="main-content page">
+        <div className="container">
+          <section className="section text-center">No se encontró usuario.</section>
+        </div>
       </div>
     );
 
   return (
-    <div className="main-content">
-      <section className="section mx-auto" style={{ maxWidth: '500px' }}>
-        {' '}
-        <h1 className="text-primary mb-4 text-center">Mi perfil</h1>
-        <div className="d-flex flex-column gap-3">
-          <div>
-            <label className="form-label">Nombre</label>
-            <input
-              name="nombre"
-              value={usuario.nombre ?? ''}
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
-          <div>
-            <label className="form-label">Email</label>
-            <input
-              name="email"
-              value={usuario.email ?? ''}
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
+    <div className="main-content page">
+      <div className="container">
+        <section className="section mx-auto" style={{ maxWidth: '500px' }}>
+          <h1 className="text-primary mb-4 text-center">Mi perfil</h1>
+          <div className="d-flex flex-column gap-3">
+            <div>
+              <label className="form-label">Nombre</label>
+              <input
+                name="nombre"
+                value={usuario.nombre ?? ''}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+            <div>
+              <label className="form-label">Email</label>
+              <input
+                name="email"
+                value={usuario.email ?? ''}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
 
-          <div>
-            <label className="form-label">Teléfono</label>
-            <input
-              name="telefono"
-              value={usuario.telefono ?? ''}
-              onChange={handleChange}
-              className="form-control"
-            />
+            <div>
+              <label className="form-label">Teléfono</label>
+              <input
+                name="telefono"
+                value={usuario.telefono ?? ''}
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
+
+            <button className="btn btn-accent w-auto mt-2" onClick={guardar} disabled={saving}>
+              {saving ? 'Guardando...' : 'Guardar cambios'}
+            </button>
+
+            {message && (
+              <p
+                className={`mt-3 text-center ${message.includes('Error') ? 'text-danger' : 'text-success'}`}
+              >
+                {message}
+              </p>
+            )}
           </div>
-
-          <button className="btn btn-accent w-auto mt-2" onClick={guardar} disabled={saving}>
-            {saving ? 'Guardando...' : 'Guardar cambios'}
-          </button>
-
-          {message && (
-            <p
-              className={`mt-3 text-center ${message.includes('Error') ? 'text-danger' : 'text-success'}`}
-            >
-              {message}
-            </p>
-          )}
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

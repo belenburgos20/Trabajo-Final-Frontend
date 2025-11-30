@@ -46,60 +46,63 @@ export default function Register() {
   };
 
   return (
-    <div className="main-content">
-      <section className="section mx-auto" style={{ maxWidth: '400px' }}>
-        {' '}
-        <h1 className="text-primary mb-4 text-center">Registro</h1>
-        <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          <input
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            placeholder="Nombre"
-            className="form-control"
-            required
-          />
-
-          <input
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Email"
-            type="email"
-            className="form-control"
-            required
-          />
-
-          <input
-            name="contraseña"
-            value={form.contraseña}
-            onChange={handleChange}
-            placeholder="Contraseña"
-            type="password"
-            className="form-control"
-            required
-          />
-
-          <div className="form-check">
+    <div className="main-content page">
+      <div className="container">
+        <section className="section mx-auto" style={{ maxWidth: '520px', padding: 28 }}>
+          <h1 className="text-primary mb-4 text-center">Registro</h1>
+          <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
             <input
-              className="form-check-input"
-              type="checkbox"
-              id="esAdmin"
-              name="esAdmin"
-              checked={form.esAdmin}
-              onChange={handleCheckbox}
+              name="nombre"
+              value={form.nombre}
+              onChange={handleChange}
+              placeholder="Nombre"
+              className="form-control"
+              required
             />
-            <label className="form-check-label" htmlFor="esAdmin">
-              Registrarme como administrador
-            </label>
-          </div>
 
-          <button type="submit" className="btn btn-accent w-auto" disabled={loading}>
-            {loading ? 'Registrando...' : 'Registrarme'}
-          </button>
-        </form>
-        {error && <p className="mt-3 text-center text-danger">{error}</p>}
-      </section>
+            <input
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Email"
+              type="email"
+              className="form-control"
+              required
+            />
+
+            <input
+              name="contraseña"
+              value={form.contraseña}
+              onChange={handleChange}
+              placeholder="Contraseña"
+              type="password"
+              className="form-control"
+              required
+            />
+
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="esAdmin"
+                name="esAdmin"
+                checked={form.esAdmin}
+                onChange={handleCheckbox}
+              />
+              <label className="form-check-label" htmlFor="esAdmin">
+                Registrarme como administrador
+              </label>
+            </div>
+
+            <div className="d-flex justify-content-end">
+              <button type="submit" className="btn btn-accent" disabled={loading}>
+                {loading ? 'Registrando...' : 'Registrarme'}
+              </button>
+            </div>
+          </form>
+          {error && <p className="mt-3 text-center text-danger">{error}</p>}
+        </section>
+      </div>
     </div>
   );
 }

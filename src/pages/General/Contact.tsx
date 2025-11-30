@@ -24,47 +24,47 @@ export default function Contact() {
   };
 
   return (
-    <div className="main-content">
-      {' '}
-      <section className="section">
-        {' '}
-        <h1 className="text-primary mb-4">Contacto</h1>
-        <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          <input
-            name="nombre"
-            value={form.nombre}
-            onChange={handleChange}
-            placeholder="Nombre"
-            className="form-control"
-            required
-          />
+    <div className="main-content page">
+      <div className="container">
+        <section className="section">
+          <h1 className="text-primary mb-4">Contacto</h1>
+          <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
+            <input
+              name="nombre"
+              value={form.nombre}
+              onChange={handleChange}
+              placeholder="Nombre"
+              className="form-control"
+              required
+            />
 
-          <input
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Email"
-            type="email"
-            className="form-control"
-            required
-          />
+            <input
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Email"
+              type="email"
+              className="form-control"
+              required
+            />
 
-          <textarea
-            name="mensaje"
-            value={form.mensaje}
-            onChange={handleChange}
-            placeholder="Mensaje"
-            className="form-control"
-            rows={5}
-            required
-          />
+            <textarea
+              name="mensaje"
+              value={form.mensaje}
+              onChange={handleChange}
+              placeholder="Mensaje"
+              className="form-control"
+              rows={5}
+              required
+            />
 
-          <button type="submit" className="btn btn-accent w-auto">
-            Enviar
-          </button>
-        </form>
-        {status && <p className="mt-3">{status}</p>}
-      </section>
+            <button type="submit" className="btn btn-accent w-auto">
+              Enviar
+            </button>
+          </form>
+          {status && <p className="mt-3">{status}</p>}
+        </section>
+      </div>
     </div>
   );
 }

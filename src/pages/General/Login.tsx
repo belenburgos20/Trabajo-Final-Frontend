@@ -35,7 +35,13 @@ export default function Login() {
       } catch {
         /* non-critical */
       }
-      navigate('/clientes/productos');
+      // redirigir según rol
+      const isAdmin = (user as Cliente).esAdmin || false;
+      if (isAdmin) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/clientes/productos');
+      }
     } catch (err: unknown) {
       console.error(err);
       const message = err instanceof Error ? err.message : 'Credenciales inválidas';
@@ -46,36 +52,43 @@ export default function Login() {
   };
 
   return (
-    <div className="main-content">
-      <section className="section mx-auto" style={{ maxWidth: '400px' }}>
-        <h1 className="text-primary mb-4 text-center">Ingresar</h1>
-        <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="form-control"
-            required
-          />
+    <div className="main-content page">
+      <div className="container">
+        <section className="section mx-auto" style={{ maxWidth: '420px', padding: 28 }}>
+          <h1 className="text-primary mb-4 text-center">Ingresar</h1>
+          <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="Email"
+              className="form-control"
+              required
+            />
 
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            placeholder="Contraseña"
-            className="form-control"
-            required
-          />
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Contraseña"
+              className="form-control"
+              required
+            />
 
-          <button type="submit" className="btn btn-accent w-auto" disabled={loading}>
-            {loading ? 'Ingresando...' : 'Ingresar'}
-          </button>
-        </form>
-        {error && <p className="mt-3 text-center text-danger">{error}</p>}
-      </section>
+            <div className="d-flex justify-content-between align-items-center">
+              <button type="submit" className="btn btn-accent" disabled={loading}>
+                {loading ? 'Ingresando...' : 'Ingresar'}
+              </button>
+              <a href="#" className="text-muted" style={{ fontSize: 13 }}>
+                Olvidé mi contraseña
+              </a>
+            </div>
+          </form>
+          {error && <p className="mt-3 text-center text-danger">{error}</p>}
+        </section>
+      </div>
     </div>
   );
 }

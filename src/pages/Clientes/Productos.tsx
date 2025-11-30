@@ -55,27 +55,28 @@ export default function ProductosList() {
   if (error) return <p className="text-center text-danger">{error}</p>;
 
   return (
-    <div className="main-content">
-      <section className="section mx-auto" style={{ maxWidth: '900px' }}>
-        {' '}
-        <h1 className="text-primary mb-4 text-center">Productos</h1>{' '}
-        <div className="d-flex flex-wrap gap-3 justify-content-center">
-          {productos.map((p) => {
-            const itemCarrito = carrito.find((c) => c.idProducto === p.idProducto);
+    <div className="main-content page">
+      <div className="container">
+        <section className="section" style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <h1 className="text-primary mb-4 text-center">Productos</h1>
+          <div className="g">
+            {productos.map((p) => {
+              const itemCarrito = carrito.find((c) => c.idProducto === p.idProducto);
 
-            return (
-              <ProductCard
-                key={p.idProducto}
-                producto={p}
-                cantidad={itemCarrito?.cantidad || 0}
-                onAdd={() => actualizarCarrito(p, (itemCarrito?.cantidad || 0) + 1)}
-                onRemove={() => actualizarCarrito(p, (itemCarrito?.cantidad || 0) - 1)}
-                onDelete={() => actualizarCarrito(p, 0)}
-              />
-            );
-          })}
-        </div>
-      </section>
+              return (
+                <ProductCard
+                  key={p.idProducto}
+                  producto={p}
+                  cantidad={itemCarrito?.cantidad || 0}
+                  onAdd={() => actualizarCarrito(p, (itemCarrito?.cantidad || 0) + 1)}
+                  onRemove={() => actualizarCarrito(p, (itemCarrito?.cantidad || 0) - 1)}
+                  onDelete={() => actualizarCarrito(p, 0)}
+                />
+              );
+            })}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -18,9 +18,14 @@ export default function Header() {
 
   return (
     <header className="App-header d-flex justify-content-between align-items-center px-4">
-      <h1 className="m-0">Oleohidráulica Guardese</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <img src="/logo192.png" alt="logo" style={{ height: 40 }} />
+        <h1 className="m-0" style={{ fontSize: 18 }}>
+          Oleohidráulica Guardese
+        </h1>
+      </div>
 
-      <nav className="d-flex align-items-center">
+      <nav className="d-flex align-items-center" style={{ gap: 10 }}>
         <Link to="/" className="text-white text-decoration-none me-3">
           Home
         </Link>
@@ -30,17 +35,30 @@ export default function Header() {
 
         {appCtx && appCtx.user ? (
           <>
-            {appCtx.user.esAdmin && (
-              <Link to="/admin/dashboard" className="text-white text-decoration-none me-3">
-                Admin
-              </Link>
+            {appCtx.user.esAdmin ? (
+              // si es admin, mostrar sólo el enlace a admin
+              <>
+                <Link to="/admin/dashboard" className="text-white text-decoration-none me-3">
+                  Admin
+                </Link>
+                <button className="btn btn-sm btn-outline-light" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
+              </>
+            ) : (
+              // usuario cliente: mostrar enlaces de cliente
+              <>
+                <Link to="/clientes/productos" className="text-white text-decoration-none me-3">
+                  Productos
+                </Link>
+                <Link to="/clientes/perfil" className="text-white text-decoration-none me-3">
+                  Perfil
+                </Link>
+                <button className="btn btn-sm btn-outline-light" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
+              </>
             )}
-            <Link to="/clientes/perfil" className="text-white text-decoration-none me-3">
-              Perfil
-            </Link>
-            <button className="btn btn-sm btn-outline-light" onClick={handleLogout}>
-              Cerrar sesión
-            </button>
           </>
         ) : (
           <>

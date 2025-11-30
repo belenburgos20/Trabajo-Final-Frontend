@@ -21,18 +21,38 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-primary mb-4">Panel de administrador</h1>
-      <div className="d-flex gap-3 mb-3">
-        <div className="card p-3">
-          <h2>Total productos</h2>
-          <p>{productos.length}</p>
+    <div className="main-content page">
+      <div className="container">
+        <h1 className="text-primary mb-4">Panel de administrador</h1>
+
+        <div className="stat-grid">
+          <div className="stat-card">
+            <h3>Total productos</h3>
+            <p>{productos.length}</p>
+            <p className="small">Productos disponibles en catálogo</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Total presupuestos</h3>
+            <p>{presupuestos.length}</p>
+            <p className="small">Presupuestos solicitados por usuarios</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Últimos productos</h3>
+            <p className="small">
+              {productos
+                .slice(-3)
+                .map((p) => p.nombre)
+                .join(', ') || '—'}
+            </p>
+          </div>
         </div>
 
-        <div className="card p-3">
-          <h2>Total presupuestos</h2>
-          <p>{presupuestos.length}</p>
-        </div>
+        <section className="section">
+          <h2 className="mb-3">Actividad reciente</h2>
+          <p className="small">Resumen rápido de la actividad del sistema.</p>
+        </section>
       </div>
     </div>
   );

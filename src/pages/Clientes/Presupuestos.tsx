@@ -38,21 +38,40 @@ export default function PresupuestosHistorial() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="main-content">
-      <section className="section mx-auto" style={{ maxWidth: '700px' }}>
-        {' '}
-        <h1 className="text-primary mb-4 text-center">Mis presupuestos</h1>
-        {loading && <p className="text-center">Cargando presupuestos...</p>}
-        {error && <p className="text-center text-danger">{error}</p>}
-        {!loading && !error && historial.length === 0 && (
-          <p className="text-center">No hay presupuestos.</p>
-        )}
-        <div className="d-flex flex-column gap-3">
-          {historial.map((p) => (
-            <PresupuestoCard key={p.idPresupuesto} presupuesto={p} />
-          ))}
-        </div>
-      </section>
+    <div className="main-content page">
+      <div className="container">
+        <section className="section" style={{ maxWidth: '760px', margin: '0 auto' }}>
+          <h1 className="text-primary mb-4 text-center">Mis presupuestos</h1>
+          {loading && <p className="text-center">Cargando presupuestos...</p>}
+          {error && <p className="text-center text-danger">{error}</p>}
+          {!loading && !error && historial.length === 0 && (
+            <p className="text-center">No hay presupuestos.</p>
+          )}
+
+          <div className="d-flex flex-column gap-3">
+            {historial.map((p) => (
+              <div key={p.idPresupuesto} className="pd">
+                <div className="d-flex justify-content-between align-items-start">
+                  <div>
+                    <h4>Presupuesto #{p.idPresupuesto}</h4>
+                    <p className="small">Fecha: {p.fecha}</p>
+                  </div>
+                  <div>
+                    <span
+                      className={`bd ${p.estado === 'pendiente' ? 'bd-pend' : p.estado === 'aprobado' ? 'bd-ok' : 'bd-cancel'}`}
+                    >
+                      {p.estado}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <p className="small">Total: ${p.montoTotal}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

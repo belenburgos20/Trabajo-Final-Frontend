@@ -70,63 +70,63 @@ export default function Carrito() {
 
   if (carrito.length === 0)
     return (
-      <div className="main-content">
-        {' '}
-        <section className="section text-center">
-          {' '}
-          <p>El carrito está vacío.</p>{' '}
-        </section>{' '}
+      <div className="main-content page">
+        <div className="container">
+          <section className="section text-center">
+            <p>El carrito está vacío.</p>
+          </section>
+        </div>
       </div>
     );
 
   const total = carrito.reduce((s, it) => s + it.precio * it.cantidad, 0);
 
   return (
-    <div className="main-content">
-      <section className="section mx-auto" style={{ maxWidth: '800px' }}>
-        {' '}
-        <h1 className="text-primary mb-4 text-center">Carrito</h1>
-        ```
-        {carrito.map((item, idx) => (
-          <div key={item.codigo ?? item.id ?? idx} className="card mb-3 p-3">
-            <div className="d-flex justify-content-between align-items-center flex-wrap">
-              <div>
-                <strong>{item.nombre}</strong>
-                <div>Precio: ${item.precio}</div>
-              </div>
+    <div className="main-content page">
+      <div className="container">
+        <section className="section" style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <h1 className="text-primary mb-4 text-center">Carrito</h1>
 
-              <div className="d-flex align-items-center gap-2 mt-2 mt-md-0">
-                <label htmlFor={`cantidad-${idx}`} className="mb-0">
-                  Cantidad:
-                </label>
-                <input
-                  id={`cantidad-${idx}`}
-                  type="number"
-                  value={item.cantidad}
-                  min={1}
-                  onChange={(e) => actualizarCantidad(idx, Number(e.target.value))}
-                  className="form-control"
-                  style={{ width: 80 }}
-                />
-                <button className="btn btn-outline-danger" onClick={() => quitarItem(idx)}>
-                  Quitar
-                </button>
-              </div>
+          <div className="d-flex flex-column gap-3">
+            {carrito.map((item, idx) => (
+              <div key={item.codigo ?? item.id ?? idx} className="cart-item">
+                <div className="item-info">
+                  <strong>{item.nombre}</strong>
+                  <div className="small">Precio: ${item.precio}</div>
+                </div>
 
-              <div className="mt-2 mt-md-0">
-                <strong>Subtotal: ${item.precio * item.cantidad}</strong>
+                <div className="d-flex align-items-center gap-2">
+                  <input
+                    id={`cantidad-${idx}`}
+                    type="number"
+                    value={item.cantidad}
+                    min={1}
+                    onChange={(e) => actualizarCantidad(idx, Number(e.target.value))}
+                    className="form-control"
+                    style={{ width: 80 }}
+                  />
+                  <button className="btn btn-outline-danger" onClick={() => quitarItem(idx)}>
+                    Quitar
+                  </button>
+                </div>
+
+                <div>
+                  <strong>Subtotal: ${item.precio * item.cantidad}</strong>
+                </div>
               </div>
+            ))}
+
+            <div className="cart-summary">
+              <strong>Total: ${total}</strong>
+              <button className="btn btn-accent" onClick={enviarPresupuesto} disabled={sending}>
+                {sending ? 'Enviando...' : 'Enviar presupuesto'}
+              </button>
             </div>
+
+            {message && <p className="mt-3 text-center text-success">{message}</p>}
           </div>
-        ))}
-        <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap">
-          <strong>Total: ${total}</strong>
-          <button className="btn btn-accent" onClick={enviarPresupuesto} disabled={sending}>
-            {sending ? 'Enviando...' : 'Enviar presupuesto'}
-          </button>
-        </div>
-        {message && <p className="mt-3 text-center text-success">{message}</p>}
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
