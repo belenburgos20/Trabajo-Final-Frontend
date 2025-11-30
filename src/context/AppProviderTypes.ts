@@ -1,7 +1,8 @@
 export interface User {
   id: string;
-  name: string;
+  name?: string;
   email: string;
+  esAdmin?: boolean;
   // agregá otros campos que necesites
 }
 

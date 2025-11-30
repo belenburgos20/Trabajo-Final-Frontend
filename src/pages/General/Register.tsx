@@ -10,6 +10,7 @@ export default function Register() {
     nombre: '',
     email: '',
     contraseña: '',
+    esAdmin: false,
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -17,6 +18,9 @@ export default function Register() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.checked });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,6 +32,7 @@ export default function Register() {
         nombre: form.nombre || undefined,
         email: form.email,
         contraseña: form.contraseña,
+        esAdmin: form.esAdmin,
       };
 
       await crearCliente(data);
@@ -74,6 +79,20 @@ export default function Register() {
             className="form-control"
             required
           />
+
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="esAdmin"
+              name="esAdmin"
+              checked={form.esAdmin}
+              onChange={handleCheckbox}
+            />
+            <label className="form-check-label" htmlFor="esAdmin">
+              Registrarme como administrador
+            </label>
+          </div>
 
           <button type="submit" className="btn btn-accent w-auto" disabled={loading}>
             {loading ? 'Registrando...' : 'Registrarme'}

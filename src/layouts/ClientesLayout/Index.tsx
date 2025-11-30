@@ -1,9 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Index';
 import Header from '../../components/Header/Index';
 import Footer from '../../components/Footer/Index';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
 const ClientesLayout = () => {
+  const appCtx = useContext(AppContext);
+
+  if (!appCtx || !appCtx.user) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <div className="App d-flex flex-column min-vh-100">
       <Header />

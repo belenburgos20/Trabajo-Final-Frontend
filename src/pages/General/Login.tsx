@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { login as loginService } from '../../services/authService';
+import { AppContext } from '../../context/AppContext';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,27 +12,31 @@ export default function Login() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  const appCtx = useContext(AppContext);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch('/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) {
-        const msg = await res.text();
-        throw new Error(msg || 'Error en login');
-      }
-
-      const user = await res.json();
+      const user = await loginService({ email: form.email, password: form.password });
       localStorage.setItem('user', JSON.stringify(user));
+      try {
+        if (appCtx && appCtx.setUser) {
+          const u = {
+            id: String((user as any).id),
+            name: (user as any).nombre || (user as any).name,
+            email: (user as any).email,
+            esAdmin: (user as any).esAdmin || false,
+          };
+          appCtx.setUser(u);
+        }
+      } catch (e) {}
       navigate('/clientes/productos');
     } catch (err: React.ChangeEvent<HTMLInputElement>) {
       console.error(err);
-      setError(err.message || 'Credenciales inválidas');
+      const message = (err as any)?.message || 'Credenciales inválidas';
+      setError(message);
     } finally {
       setLoading(false);
     }

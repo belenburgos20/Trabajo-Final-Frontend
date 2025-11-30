@@ -1,20 +1,26 @@
-import { type ReactNode } from 'react';
+import { Outlet, Navigate } from 'react-router-dom';
 import Header from '../../components/Header/Index';
 import Sidebar from '../../components/Sidebar/Index';
 import Footer from '../../components/Footer/Index';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
-interface AdminLayoutProps {
-  children?: ReactNode;
-}
+const AdminLayout = () => {
+  const appCtx = useContext(AppContext);
 
-const AdminLayout = ({ children }: AdminLayoutProps) => {
+  if (!appCtx || !appCtx.user || !appCtx.user.esAdmin) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <div className="App d-flex flex-column min-vh-100">
       <Header />
 
       <div className="d-flex flex-1 overflow-hidden">
         <Sidebar variant="admin" />
-        <main className="client-content p-4 overflow-auto">{children}</main>
+        <main className="client-content p-4 overflow-auto">
+          <Outlet />
+        </main>
       </div>
 
       <Footer />
