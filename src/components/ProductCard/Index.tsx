@@ -12,7 +12,6 @@ export default function ProductCard({ producto, cantidad, onAdd, onRemove, onDel
   return (
     <div className="c card h-100 shadow-sm">
       {producto.imagen ? (
-        // eslint-disable-next-line @next/next/no-img-element
         <div className="i">
           <img src={producto.imagen} alt={producto.nombre} />
         </div>
