@@ -1,5 +1,11 @@
 # Proyecto Final - Frontend
 
+## Participantes:
+-Burgos, Belén.
+-Guardese, Luciano.
+-Hubert, Noelia.
+-Ibañez, Ian Franco.
+
 **Oleohidráulica Guardese** — Frontend del proyecto final de la Tecnicatura en Programación.
 
 Descripción
