@@ -84,6 +84,9 @@ Tecnologías y herramientas usadas
 - ESLint, Prettier (linting y formateo)
 - Husky + lint-staged (ganchos pre-commit)
 
+Manejo de tableros en Trello para la división de tareas. Cronograma/Sprint
+- https://trello.com/b/MuVdiLr8/mi-tablero-de-trello
+
 Consideraciones y limitaciones
 
 - Datos: actualmente la aplicación usa mocks locales (`src/mocks` y `public/mocks`) para acelerar el desarrollo. Algunos flujos (p. ej. validaciones server-side, permisos y datos persistentes) dependen de la futura API.
