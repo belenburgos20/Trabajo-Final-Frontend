@@ -6,7 +6,7 @@
     "idCategoria": { "idCategoria": 1, "nombre": "Hidráulica" },
     "stock": 10,
     "precio": 12000,
-    "imagen": "/assets/hidraulica1.jpg"
+    "imagen": "/assets/bombas-hidraulicas.jpg"
   },
   {
     "idProducto": 2,
@@ -15,7 +15,7 @@
     "idCategoria": { "idCategoria": 1, "nombre": "Hidráulica" },
     "stock": 5,
     "precio": 8000,
-    "imagen": "/assets/hidraulica2.jpg"
+    "imagen": "/assets/cilindro-de-piston.jpg"
   },
   {
     "idProducto": 3,
@@ -24,6 +24,6 @@
     "idCategoria": { "idCategoria": 2, "nombre": "Accesorios" },
     "stock": 20,
     "precio": 3000,
-    "imagen": "/assets/accesorio1.jpg"
+    "imagen": "/assets/manguera-reforzada.jpg"
   }
 ]

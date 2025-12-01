@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { Presupuesto } from '../../types/Presupuesto';
 import { getPresupuestos } from '../../services/presupestosService';
+import PresupuestoCard from '../../components/PresupuestoCard/Index';
 
 export default function PresupuestosAdmin() {
   const [presupuestos, setPresupuestos] = useState<Presupuesto[]>([]);
   const [filter, setFilter] = useState<string>('all');
+  const [selected, setSelected] = useState<Presupuesto | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -56,7 +58,11 @@ export default function PresupuestosAdmin() {
               </thead>
               <tbody>
                 {filtered.map((p) => (
-                  <tr key={p.idPresupuesto}>
+                  <tr
+                    key={p.idPresupuesto}
+                    onClick={() => setSelected(p)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <td>{p.idPresupuesto}</td>
                     <td>{p.idUsuario}</td>
                     <td>{p.fecha}</td>
@@ -73,6 +79,12 @@ export default function PresupuestosAdmin() {
               </tbody>
             </table>
           </div>
+          {selected && (
+            <section className="section mt-3">
+              <h3>Detalle del presupuesto seleccionado</h3>
+              <PresupuestoCard presupuesto={selected} />
+            </section>
+          )}
         </section>
       </div>
     </div>

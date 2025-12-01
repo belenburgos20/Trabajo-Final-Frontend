@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <header className="App-header d-flex justify-content-between align-items-center px-4">
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <img src="/logo192.png" alt="logo" style={{ height: 40 }} />
+        <img src="/assets/logo1.avif" alt="logo" style={{ height: 40 }} />
         <h1 className="m-0" style={{ fontSize: 18 }}>
           Oleohidráulica Guardese
         </h1>

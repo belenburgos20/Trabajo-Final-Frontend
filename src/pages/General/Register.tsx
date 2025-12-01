@@ -1,23 +1,32 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { crearCliente } from '../../services/clientesService';
 import type { NuevoCliente } from '../../types/Cliente';
+import { AppContext } from '../../context/AppContext';
 
 export default function Register() {
   const navigate = useNavigate();
+
+  const appCtx = useContext(AppContext);
 
   const [form, setForm] = useState({
     nombre: '',
     email: '',
     contraseña: '',
+    CUIT: '',
+    direccion: '',
+    telefono: '',
+    localidad: '',
     esAdmin: false,
   });
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
 
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.checked });
@@ -32,14 +41,36 @@ export default function Register() {
         nombre: form.nombre || undefined,
         email: form.email,
         contraseña: form.contraseña,
+        CUIT: form.CUIT || undefined,
+        direccion: form.direccion || undefined,
+        telefono: form.telefono ? Number(form.telefono) : undefined,
+        localidad: form.localidad || undefined,
         esAdmin: form.esAdmin,
       };
 
-      await crearCliente(data);
-      navigate('/login');
-    } catch (err: React.ChangeEvent<HTMLInputElement>) {
+      const created = await crearCliente(data);
+      // persistir en localStorage y en AppContext para que Perfil lo muestre inmediatamente
+      try {
+        localStorage.setItem('user', JSON.stringify(created));
+      } catch {
+        /* noop */
+      }
+      if (appCtx && appCtx.setUser) {
+        appCtx.setUser({
+          id: String(created.id),
+          name: created.nombre,
+          email: created.email,
+          esAdmin: created.esAdmin,
+        });
+      }
+
+      // Redirect: admin -> admin dashboard, cliente -> perfil
+      if (created.esAdmin) navigate('/admin/dashboard');
+      else navigate('/clientes/perfil');
+    } catch (err: unknown) {
       console.error(err);
-      setError(err.message || 'Error al registrar');
+      if (err instanceof Error) setError(err.message || 'Error al registrar');
+      else setError('Error al registrar');
     } finally {
       setLoading(false);
     }
@@ -78,6 +109,39 @@ export default function Register() {
               type="password"
               className="form-control"
               required
+            />
+
+            <input
+              name="CUIT"
+              value={form.CUIT}
+              onChange={handleChange}
+              placeholder="CUIT (opcional)"
+              className="form-control"
+            />
+
+            <input
+              name="direccion"
+              value={form.direccion}
+              onChange={handleChange}
+              placeholder="Dirección"
+              className="form-control"
+            />
+
+            <input
+              name="telefono"
+              value={form.telefono}
+              onChange={handleChange}
+              placeholder="Teléfono"
+              className="form-control"
+              type="tel"
+            />
+
+            <input
+              name="localidad"
+              value={form.localidad}
+              onChange={handleChange}
+              placeholder="Localidad"
+              className="form-control"
             />
 
             <div className="form-check">

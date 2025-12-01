@@ -56,17 +56,18 @@ header.App-header {
 
 .client-sidebar {
   width: 240px;
-  min-height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding-top: 80px;
+  /* sidebar forma parte del flujo del layout (no fija) */
+  position: relative;
+  min-height: 100%;
+  padding-top: 0;
   background: #fbfdff;
 }
 
 .client-content {
-  margin-left: 260px;
+  margin-left: 0;
   padding: 28px;
+  flex: 1;
+  overflow: auto;
 }
 
 @media (max-width: 768px) {

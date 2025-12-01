@@ -65,7 +65,7 @@ export default function ProductosAdmin() {
     }
   };
 
-  // admin: editar precio
+  //  editar precio
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingPrice, setEditingPrice] = useState<number>(0);
 
@@ -100,7 +100,7 @@ export default function ProductosAdmin() {
     <div className="main-content page">
       <div className="container">
         <h1 className="text-primary mb-4">Gestión de Productos</h1>
-        {/* Form para crear nuevo producto */}
+        {/* nuevo producto */}
         <section className="section mb-4">
           <h2 className="mb-3">Agregar producto</h2>
           <form onSubmit={handleCreate} className="d-flex flex-column gap-3">

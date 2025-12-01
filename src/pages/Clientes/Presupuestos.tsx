@@ -50,24 +50,7 @@ export default function PresupuestosHistorial() {
 
           <div className="d-flex flex-column gap-3">
             {historial.map((p) => (
-              <div key={p.idPresupuesto} className="pd">
-                <div className="d-flex justify-content-between align-items-start">
-                  <div>
-                    <h4>Presupuesto #{p.idPresupuesto}</h4>
-                    <p className="small">Fecha: {p.fecha}</p>
-                  </div>
-                  <div>
-                    <span
-                      className={`bd ${p.estado === 'pendiente' ? 'bd-pend' : p.estado === 'aprobado' ? 'bd-ok' : 'bd-cancel'}`}
-                    >
-                      {p.estado}
-                    </span>
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <p className="small">Total: ${p.montoTotal}</p>
-                </div>
-              </div>
+              <PresupuestoCard key={p.idPresupuesto} presupuesto={p} />
             ))}
           </div>
         </section>
