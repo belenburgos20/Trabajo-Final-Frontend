@@ -43,6 +43,11 @@ Mocks y futura conexión al backend
 - Actualmente todas las llamadas de datos pueden apuntar a los mocks locales (archivos JSON en `src/mocks` y `public/mocks`).
 - Próximamente se integrará un backend real: la capa de servicios (`src/services`) está diseñada para facilitar el cambio desde mocks a endpoints reales.
 
+
+Proyecto desplegado en Render
+- https://trabajo-final-frontend-j103.onrender.com
+
+
 Cómo ejecutar el proyecto (local)
 
 1. Clonar el repositorio:
@@ -62,6 +67,7 @@ npm install
 
 ```powershell
 npm run dev      # inicia el servidor de desarrollo (Vite)
+npm run build    # compila TypeScript y genera build de producción (tsc + vite build)
 npm run lint     # ejecuta ESLint
 npm run lint:fix # ejecuta ESLint y corrige problemas automáticos
 ```
