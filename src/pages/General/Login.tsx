@@ -26,7 +26,7 @@ export default function Login() {
         if (appCtx && appCtx.setUser) {
           const u = {
             id: String((user as Cliente).id),
-            name: (user as Cliente).nombre || (user as Cliente).name,
+            name: (user as Cliente).nombre || (user as Cliente).nombre,
             email: (user as Cliente).email,
             esAdmin: (user as Cliente).esAdmin || false,
           };
