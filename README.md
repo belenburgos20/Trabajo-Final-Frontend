@@ -62,8 +62,6 @@ npm install
 
 ```powershell
 npm run dev      # inicia el servidor de desarrollo (Vite)
-npm run build    # compila TypeScript y genera build de producción (tsc + vite build)
-npm run preview  # sirve el build de producción localmente
 npm run lint     # ejecuta ESLint
 npm run lint:fix # ejecuta ESLint y corrige problemas automáticos
 ```
