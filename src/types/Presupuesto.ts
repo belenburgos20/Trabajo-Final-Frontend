@@ -1,15 +1,34 @@
-import { type Producto } from "./Producto";
+import type { DetallePresupuesto, NuevoDetallePresupuesto } from './DetallePresupuesto.ts';
 
-export interface PresupuestoItem {
-  producto: Producto;
-  cantidad: number;
+// Representa un presupuesto tal como lo devuelve el backend
+export interface Presupuesto {
+  idPresupuesto: number;
+  idUsuario: number;
+  fecha: string; // Dates vienen como string en JSON
+  detalle: DetallePresupuesto[];
+  montoTotal: number;
+  fechaEntrega: string;
+  estado: string;
 }
 
-export interface Presupuesto {
-  id: number;
-  clienteId: number;
-  fecha: string; // formato ISO "2025-01-01"
-  items: PresupuestoItem[];
-  total: number;
-  estado?: "pendiente" | "aprobado" | "rechazado";
+// Para crear un nuevo presupuesto (POST)
+export interface NuevoPresupuesto {
+  idUsuario: number;
+
+  // por cómo funciona normalmente el backend:
+  // el backend calcula el idPresupuesto automáticamente
+  fecha: string;
+  fechaEntrega: string;
+  estado: string;
+
+  // detalle: array completo de productos seleccionados
+  detalle: NuevoDetallePresupuesto[];
+}
+
+// Para actualizar un presupuesto existente (PUT/PATCH)
+export interface UpdatePresupuesto {
+  fecha?: string;
+  fechaEntrega?: string;
+  estado?: string;
+  detalle?: NuevoDetallePresupuesto[];
 }

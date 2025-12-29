@@ -1,29 +1,76 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
-type HeaderProps = {
-  title?: string;
-};
+export default function Header() {
+  const navigate = useNavigate();
+  const appCtx = useContext(AppContext);
 
-function Header({ title = "Mi Proyecto" }: HeaderProps) {
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('user');
+    } catch {
+      /* ignore */
+    }
+    if (appCtx && appCtx.setUser) appCtx.setUser(null);
+    navigate('/');
+  };
+
   return (
-    <header
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "12px 20px",
-        borderBottom: "1px solid #ddd",
-      }}
-    >
-      <h1 style={{ margin: 0, fontSize: "20px" }}>{title}</h1>
+    <header className="App-header d-flex justify-content-between align-items-center px-4">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <img src="/assets/images/logo1.jpg" alt="logo" style={{ height: 40 }} />
+        <h1 className="m-0" style={{ fontSize: 18 }}>
+          Oleohidráulica Guardese
+        </h1>
+      </div>
 
-      <nav style={{ display: "flex", gap: "16px" }}>
-        <Link to="/">Inicio</Link>
-        <Link to="/contact">Contacto</Link>
-        <Link to="/login">Login</Link>
+      <nav className="d-flex align-items-center" style={{ gap: 10 }}>
+        <Link to="/" className="text-white text-decoration-none me-3">
+          Home
+        </Link>
+        <Link to="/contact" className="text-white text-decoration-none me-3">
+          Contacto
+        </Link>
+
+        {appCtx && appCtx.user ? (
+          <>
+            {appCtx.user.esAdmin ? (
+              // si es admin, mostrar sólo el enlace a admin
+              <>
+                <Link to="/admin/dashboard" className="text-white text-decoration-none me-3">
+                  Admin
+                </Link>
+                <button className="btn btn-sm btn-outline-light" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
+              </>
+            ) : (
+              // usuario cliente: mostrar enlaces de cliente
+              <>
+                <Link to="/clientes/productos" className="text-white text-decoration-none me-3">
+                  Productos
+                </Link>
+                <Link to="/clientes/perfil" className="text-white text-decoration-none me-3">
+                  Perfil
+                </Link>
+                <button className="btn btn-sm btn-outline-light" onClick={handleLogout}>
+                  Cerrar sesión
+                </button>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="btn btn-sm btn-accent me-2">
+              Ingresar
+            </Link>
+            <Link to="/register" className="btn btn-sm btn-accent">
+              Registrarse
+            </Link>
+          </>
+        )}
       </nav>
     </header>
   );
 }
-
-export default Header;

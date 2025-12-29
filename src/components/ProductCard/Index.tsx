@@ -1,76 +1,54 @@
-type ProductCardProps = {
-  name?: string;
-  price?: number;
-  image?: string;
-  onAddToCart?: () => void;
-};
+import { type Producto } from '../../types/Producto';
 
-function ProductCard({
-  name = "Producto sin nombre",
-  price = 0,
-  image,
-  onAddToCart,
-}: ProductCardProps) {
+interface Props {
+  producto: Producto;
+  cantidad: number;
+  onAdd: () => void;
+  onRemove: () => void;
+  onDelete: () => void;
+}
+
+export default function ProductCard({ producto, cantidad, onAdd, onRemove, onDelete }: Props) {
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        padding: "16px",
-        width: "220px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "140px",
-          background: "#f2f2f2",
-          borderRadius: "6px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
-      >
-        {image ? (
-          <img
-            src={image}
-            alt={name}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
-        ) : (
-          <span style={{ fontSize: "12px", color: "#888" }}>
-            Sin imagen
-          </span>
-        )}
+    <div className="c card h-100 shadow-sm">
+      {producto.imagen ? (
+        <div className="i">
+          <img src={producto.imagen} alt={producto.nombre} />
+        </div>
+      ) : (
+        <div className="i">
+          <span style={{ color: 'var(--muted)' }}>Sin imagen</span>
+        </div>
+      )}
+
+      <div className="b">
+        <h5 className="card-title text-primary" style={{ fontSize: 16 }}>
+          {producto.nombre}
+        </h5>
+        <p className="card-text" style={{ color: 'var(--muted)' }}>
+          Precio: <strong style={{ color: 'var(--text)' }}>${producto.precio}</strong>
+        </p>
+
+        <div className="a mt-auto">
+          <button className="btn btn-sm btn-success" onClick={onAdd}>
+            +
+          </button>
+          <button className="btn btn-sm btn-warning" onClick={onRemove} disabled={cantidad === 0}>
+            -
+          </button>
+          <button
+            className="btn btn-sm btn-danger ms-auto"
+            onClick={onDelete}
+            disabled={cantidad === 0}
+          >
+            Eliminar
+          </button>
+        </div>
+
+        <p className="mt-2 mb-0 small">
+          Cantidad: <strong>{cantidad}</strong>
+        </p>
       </div>
-
-      <h3 style={{ fontSize: "16px", margin: "0" }}>{name}</h3>
-
-      <p style={{ margin: "0", fontWeight: 600 }}>${price.toFixed(2)}</p>
-
-      <button
-        onClick={onAddToCart}
-        style={{
-          padding: "8px",
-          borderRadius: "6px",
-          background: "#007bff",
-          border: "none",
-          color: "white",
-          cursor: "pointer",
-        }}
-      >
-        Agregar al carrito
-      </button>
     </div>
   );
 }
-
-export default ProductCard;

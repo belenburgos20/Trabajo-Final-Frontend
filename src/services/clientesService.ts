@@ -1,31 +1,28 @@
-import { api } from "./api";
-// Estos tipos los deberías tener en /types, pero si no, los creamos después
-import { type Cliente } from "../types/Cliente";
+import axios, { USE_MOCKS } from './https';
+import type { Cliente, NuevoCliente, UpdateCliente } from '../types/Cliente';
+import * as mock from './mockAdapter';
 
-const ENDPOINT = "/clientes";
+const API_URL = '/usuarios';
 
-export const clientesService = {
-  getAll: async (): Promise<Cliente[]> => {
-    const res = await api.get(ENDPOINT);
-    return res.data;
-  },
+export async function getClienteById(id: number): Promise<Cliente> {
+  if (USE_MOCKS) return (await mock.getClienteByIdMock(id)) as Cliente;
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data;
+}
 
-  getById: async (id: number): Promise<Cliente> => {
-    const res = await api.get(`${ENDPOINT}/${id}`);
-    return res.data;
-  },
+export async function crearCliente(data: NuevoCliente): Promise<Cliente> {
+  if (USE_MOCKS) return mock.crearClienteMock(data);
+  const response = await axios.post(`${API_URL}/`, data);
+  return response.data;
+}
+export async function actualizarCliente(id: number, data: UpdateCliente): Promise<Cliente> {
+  if (USE_MOCKS) return (await mock.actualizarClienteMock(id, data)) as Cliente;
+  const response = await axios.put(`${API_URL}/${id}`, data);
+  return response.data;
+}
 
-  create: async (data: Cliente): Promise<Cliente> => {
-    const res = await api.post(ENDPOINT, data);
-    return res.data;
-  },
-
-  update: async (id: number, data: Partial<Cliente>): Promise<Cliente> => {
-    const res = await api.put(`${ENDPOINT}/${id}`, data);
-    return res.data;
-  },
-
-  delete: async (id: number): Promise<void> => {
-    await api.delete(`${ENDPOINT}/${id}`);
-  },
-};
+export async function listarClientes(): Promise<Cliente[]> {
+  if (USE_MOCKS) return mock.listarClientesMock();
+  const response = await axios.get(`${API_URL}/`);
+  return response.data;
+}

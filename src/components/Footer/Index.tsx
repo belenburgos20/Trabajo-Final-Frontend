@@ -1,19 +1,9 @@
-function Footer() {
+export default function Footer() {
   return (
-    <footer
-      style={{
-        width: "100%",
-        padding: "16px 20px",
-        textAlign: "center",
-        borderTop: "1px solid #ddd",
-        marginTop: "40px",
-        fontSize: "14px",
-        color: "#555",
-      }}
-    >
-      © {new Date().getFullYear()} Mi Proyecto – Todos los derechos reservados.
+    <footer className="App-footer mt-auto">
+      <div className="container text-center py-3">
+        <p className="mb-0">© 2025 Oleohidráulica Guardese. Todos los derechos reservados.</p>
+      </div>
     </footer>
   );
 }
-
-export default Footer;

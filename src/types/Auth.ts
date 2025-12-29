@@ -2,7 +2,7 @@ export interface UsuarioAuth {
   id: number;
   nombre: string;
   email: string;
-  rol: "cliente" | "admin";
+  rol: 'cliente' | 'admin';
 }
 
 export interface AuthContextType {

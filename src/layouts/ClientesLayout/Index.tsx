@@ -1,48 +1,36 @@
-import { ReactNode } from "react";
-import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
-import Footer from "../../components/Footer";
+import { Outlet, Navigate } from 'react-router-dom';
+import Sidebar from '../../components/Sidebar/Index';
+import Header from '../../components/Header/Index';
+import Footer from '../../components/Footer/Index';
+import { useContext } from 'react';
+import { AppContext } from '../../context/AppContext';
 
-interface ClientesLayoutProps {
-  children: ReactNode;
-}
+const ClientesLayout = () => {
+  const appCtx = useContext(AppContext);
 
-const ClientesLayout = ({ children }: ClientesLayoutProps) => {
+  if (!appCtx || !appCtx.user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // si el usuario es admin, redirigir al dashboard admin
+  if (appCtx.user.esAdmin) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
   return (
-    <div style={styles.wrapper}>
+    <div className="App d-flex flex-column min-vh-100">
       <Header />
 
-      <div style={styles.contentWrapper}>
+      <div className="d-flex flex-1 overflow-hidden">
         <Sidebar variant="clientes" />
-
-        <main style={styles.mainContent}>
-          {children}
+        <main className="client-content p-4 overflow-auto">
+          <Outlet />
         </main>
       </div>
 
       <Footer />
     </div>
   );
-};
-
-const styles = {
-  wrapper: {
-    display: "flex",
-    flexDirection: "column" as const,
-    height: "100vh",
-  },
-
-  contentWrapper: {
-    display: "flex",
-    flex: 1,
-    overflow: "hidden",
-  },
-
-  mainContent: {
-    flex: 1,
-    padding: "20px",
-    overflowY: "auto" as const,
-  },
 };
 
 export default ClientesLayout;

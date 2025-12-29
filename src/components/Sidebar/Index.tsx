@@ -1,63 +1,53 @@
-type SidebarItem = {
+import { Link } from 'react-router-dom';
+
+type SidebarVariant = 'general' | 'clientes' | 'admin';
+
+interface SidebarProps {
+  variant: SidebarVariant;
+}
+
+interface SidebarLink {
   label: string;
-  path?: string; // opcional porque el sidebar aún no sabe cómo navegar
-  onClick?: () => void;
+  to: string;
+}
+const menuByVariant: Record<SidebarVariant, SidebarLink[]> = {
+  general: [
+    { label: 'Inicio', to: '/' },
+    { label: 'Contacto', to: '/contact' },
+    { label: 'Login', to: '/login' },
+  ],
+  clientes: [
+    { label: 'Perfil', to: '/clientes/perfil' },
+    { label: 'Productos', to: '/clientes/productos' },
+    { label: 'Carrito', to: '/clientes/carrito' },
+    { label: 'Presupuestos', to: '/clientes/presupuestos' },
+  ],
+  admin: [
+    { label: 'Dashboard', to: '/admin/dashboard' },
+    { label: 'Clientes', to: '/admin/clientes' },
+    { label: 'Productos', to: '/admin/productos' },
+    { label: 'Presupuestos', to: '/admin/presupuestos' },
+  ],
 };
 
-type SidebarProps = {
-  title?: string;
-  items?: SidebarItem[];
-};
+export default function Sidebar({ variant }: SidebarProps) {
+  const links = menuByVariant[variant];
 
-function Sidebar({
-  title = "Menú",
-  items = [],
-}: SidebarProps) {
   return (
-    <aside
-      style={{
-        width: "220px",
-        minHeight: "100vh",
-        borderRight: "1px solid #ddd",
-        padding: "20px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "16px",
-      }}
-    >
-      <h2
-        style={{
-          margin: 0,
-          fontSize: "18px",
-          fontWeight: "bold",
-        }}
-      >
-        {title}
-      </h2>
-
-      <nav style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {items.map((item, index) => (
-          <button
-            key={index}
-            onClick={item.onClick}
-            style={{
-              padding: "10px",
-              textAlign: "left",
-              background: "#f5f5f5",
-              border: "1px solid #ccc",
-              borderRadius: "6px",
-              cursor: "pointer",
-              fontSize: "14px",
-            }}
-          >
-            {item.label}
-          </button>
+    <aside className="client-sidebar bg-light shadow-sm">
+      <h3 className="px-3 pt-3">Menú</h3>
+      <ul className="list-unstyled d-flex flex-column px-3 gap-2">
+        {links.map((l) => (
+          <li key={l.to}>
+            <Link
+              to={l.to}
+              className="text-dark text-decoration-none d-block p-2 rounded hover-bg-primary"
+            >
+              {l.label}
+            </Link>
+          </li>
         ))}
-      </nav>
+      </ul>
     </aside>
   );
 }
-
-export default Sidebar;
-//cuando después tengamos la navegación real con react-router-dom haecemos onClick={() => navigate("/ruta")}
-
