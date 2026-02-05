@@ -1,0 +1,25 @@
+[
+  {
+    "idPresupuesto": 1,
+    "idUsuario": 1,
+    "fecha": "2025-10-01",
+    "detalle": [
+      { "idDetallePresupuesto": 1, "idPresupuesto": 1, "idProducto": 1, "cantidad": 1, "precio": 12000 },
+      { "idDetallePresupuesto": 2, "idPresupuesto": 1, "idProducto": 3, "cantidad": 2, "precio": 3000 }
+    ],
+    "montoTotal": 18000,
+    "fechaEntrega": "2025-11-01",
+    "estado": "pendiente"
+  },
+  {
+    "idPresupuesto": 2,
+    "idUsuario": 2,
+    "fecha": "2025-10-10",
+    "detalle": [
+      { "idDetallePresupuesto": 3, "idPresupuesto": 2, "idProducto": 2, "cantidad": 1, "precio": 8000 }
+    ],
+    "montoTotal": 8000,
+    "fechaEntrega": "2025-11-05",
+    "estado": "aprobado"
+  }
+]
