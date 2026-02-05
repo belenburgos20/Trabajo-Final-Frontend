@@ -32,7 +32,6 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
-      {/* Hero Section */}
       <section className="contact-hero">
         <div className="container">
           <div className="contact-hero-content">
@@ -46,7 +45,6 @@ export default function Contact() {
 
       <div className="container">
         <div className="contact-content">
-          {/* Información de Contacto */}
           <section className="contact-info-section">
             <h2 className="section-title">Información de Contacto</h2>
             <div className="contact-info-grid">
@@ -97,7 +95,6 @@ export default function Contact() {
             </div>
           </section>
 
-          {/* Formulario de Contacto */}
           <section className="contact-form-section">
             <div className="contact-form-wrapper">
               <div className="contact-form-header">

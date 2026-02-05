@@ -2,7 +2,6 @@
   width: 100%;
 }
 
-/* Hero Section */
 .contact-hero {
   background: linear-gradient(135deg, var(--primary) 0%, #0a2f58 100%);
   padding: 60px 20px;
@@ -30,7 +29,6 @@
   line-height: 1.6;
 }
 
-/* Contact Content Layout */
 .contact-content {
   display: flex;
   flex-direction: column;
@@ -38,7 +36,6 @@
   padding-bottom: 60px;
 }
 
-/* Contact Info Section */
 .contact-info-section {
   margin-top: 20px;
 }
@@ -160,7 +157,6 @@
   box-shadow: 0 4px 12px rgba(13, 59, 102, 0.3);
 }
 
-/* Contact Form Section */
 .contact-form-section {
   margin-top: 20px;
 }
@@ -191,7 +187,6 @@
   font-size: 1.05rem;
 }
 
-/* Form Styles */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -243,7 +238,6 @@
   line-height: 1.6;
 }
 
-/* Form Status Messages */
 .form-status {
   padding: 16px 20px;
   border-radius: 10px;
@@ -266,7 +260,6 @@
   border: 1px solid #ef4444;
 }
 
-/* Submit Button */
 .contact-submit-btn {
   padding: 16px 32px;
   font-size: 1.1rem;
@@ -287,7 +280,6 @@
   cursor: not-allowed;
 }
 
-/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -319,7 +311,6 @@
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .contact-hero {
     padding: 40px 20px;

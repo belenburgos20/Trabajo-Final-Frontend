@@ -2,7 +2,7 @@ import axios, { USE_MOCKS } from './https';
 import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto } from '../types/Presupuesto';
 import * as mock from './mockAdapter';
 
-const API_URL = '/presupuesto';
+const API_URL = '/presupuestos';
 
 export async function getPresupuestos(): Promise<Presupuesto[]> {
   if (USE_MOCKS) return mock.getPresupuestosMock();

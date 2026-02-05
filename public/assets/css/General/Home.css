@@ -2,7 +2,6 @@
   width: 100%;
 }
 
-/* Hero Section */
 .hero-section {
   position: relative;
   min-height: 500px;
@@ -60,36 +59,60 @@
 
 .hero-buttons {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 40px;
 }
 
 .btn-hero {
-  padding: 14px 28px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 12px;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-hero:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-accent.btn-hero {
+  background: var(--accent);
+  color: white;
+  border: 2px solid var(--accent);
+  box-shadow: 0 4px 20px rgba(230, 149, 79, 0.4);
+}
+
+.btn-accent.btn-hero:hover {
+  background: #d8853f;
+  border-color: #d8853f;
+  box-shadow: 0 8px 30px rgba(230, 149, 79, 0.5);
+  transform: translateY(-3px) scale(1.02);
 }
 
 .btn-outline-primary.btn-hero {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
-  color: white;
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid white;
+  color: var(--primary);
   backdrop-filter: blur(10px);
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
 .btn-outline-primary.btn-hero:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: white;
+  border-color: white;
+  color: var(--primary);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px) scale(1.02);
 }
 
-/* Features Section */
 .features-section {
   padding: 60px 0;
   margin-bottom: 40px;
@@ -168,7 +191,6 @@
   margin: 0;
 }
 
-/* Products Section */
 .products-section {
   padding: 60px 0;
   margin-bottom: 40px;
@@ -240,7 +262,6 @@
   line-height: 1.5;
 }
 
-/* CTA Section */
 .cta-section {
   background: linear-gradient(135deg, var(--primary) 0%, #0a2f58 100%);
   border-radius: 20px;
@@ -270,18 +291,55 @@
 
 .cta-buttons {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .btn-large {
-  padding: 16px 32px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 18px 36px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  letter-spacing: 0.5px;
+  border: 2px solid transparent;
 }
 
-/* Animations */
+.btn-accent.btn-large {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(230, 149, 79, 0.4);
+}
+
+.btn-accent.btn-large:hover {
+  background: #d8853f;
+  border-color: #d8853f;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(230, 149, 79, 0.5);
+  color: white;
+}
+
+.btn-outline-primary.btn-large {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid white;
+  color: var(--primary);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline-primary.btn-large:hover {
+  background: white;
+  border-color: white;
+  color: var(--primary);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.4);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -302,7 +360,6 @@
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .hero-section {
     min-height: 400px;
@@ -372,7 +429,6 @@
   }
 }
 
-/* Quienes somos Section */
 .quienes-somos {
   padding: 60px 0;
   margin-bottom: 40px;
@@ -414,7 +470,6 @@
   margin: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .quienes-somos-grid {
     grid-template-columns: 1fr;

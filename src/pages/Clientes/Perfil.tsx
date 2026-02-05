@@ -1,39 +1,37 @@
-import { useEffect, useState } from 'react';
-import { getClienteById, actualizarCliente } from '../../services/clientesService';
+import { useEffect, useState, useContext } from 'react';
+import { useClientes } from '../../hooks';
+import { AppContext } from '../../context/AppContext';
 import type { Cliente } from '../../types/Cliente';
 
 export default function Perfil() {
+  const {
+    fetchClienteById,
+    updateCliente,
+    isLoading: hookLoading,
+    error: hookError,
+  } = useClientes();
+  const appCtx = useContext(AppContext);
   const [usuario, setUsuario] = useState<Cliente | null>(null);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
       try {
-        const stored: Partial<Cliente> = JSON.parse(localStorage.getItem('user') || '{}');
-        const id = stored?.id;
+        const id = appCtx?.user?.id; // Obtener el ID del usuario autenticado desde el contexto
         if (!id) {
-          setUsuario(stored as Cliente);
-          setLoading(false);
+          console.error('ID de usuario no definido en el contexto');
           return;
         }
-        const data = await getClienteById(Number(id));
-        // si el mock/backend no devuelve el usuario (por ejemplo, mock no persistente),
-        // fallback a los datos guardados en localStorage para que el perfil muestre lo cargado al registrarse
+        const data = await fetchClienteById(Number(id));
         if (data) setUsuario(data);
-        else setUsuario(stored as Cliente);
       } catch (err) {
         console.error(err);
-      } finally {
-        setLoading(false);
       }
     })();
-  }, []);
+  }, [fetchClienteById, appCtx?.user?.id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Only allow editing of specific fields from the client UI
     const editable = new Set(['email', 'direccion', 'telefono', 'localidad']);
     const name = e.target.name;
     if (!editable.has(name)) return;
@@ -50,12 +48,15 @@ export default function Perfil() {
         direccion: usuario.direccion,
         telefono: usuario.telefono ? Number(usuario.telefono) : undefined,
         localidad: usuario.localidad,
+        password: usuario.password,
       } as Partial<typeof usuario>;
-      const updated = await actualizarCliente(usuario.id, payload);
-      setUsuario(updated);
-      // keep localStorage user data in sync
-      localStorage.setItem('user', JSON.stringify(updated));
-      setMessage('Datos actualizados');
+      const updated = await updateCliente(usuario.id, payload);
+      if (updated) {
+        setUsuario(updated);
+        setMessage('Datos actualizados');
+      } else {
+        setMessage(hookError || 'Error al actualizar');
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error(err);
@@ -68,7 +69,7 @@ export default function Perfil() {
     }
   };
 
-  if (loading)
+  if (hookLoading)
     return (
       <div className="main-content page">
         <div className="container">
@@ -101,8 +102,9 @@ export default function Perfil() {
             </div>
             <div>
               <label className="form-label">CUIT</label>
-              <input name="CUIT" value={usuario.CUIT ?? ''} className="form-control" readOnly />
+              <input name="cuit" value={usuario.cuit ?? ''} className="form-control" readOnly />
             </div>
+
             <div>
               <label className="form-label">Email</label>
               <input
@@ -127,7 +129,7 @@ export default function Perfil() {
               <label className="form-label">Teléfono</label>
               <input
                 name="telefono"
-                value={usuario.telefono ?? ''}
+                value={usuario.telefono ?? ''} // Manejar valores null
                 onChange={handleChange}
                 className="form-control"
               />
@@ -156,8 +158,9 @@ export default function Perfil() {
             <div>
               <label className="form-label">Contraseña</label>
               <input
-                name="contraseña"
-                value={usuario.contraseña ? '********' : ''}
+                name="password"
+                value={usuario.password ? '********' : ''}
+                onChange={handleChange}
                 className="form-control"
                 readOnly
               />

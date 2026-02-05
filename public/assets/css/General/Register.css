@@ -3,7 +3,6 @@
   min-height: 100vh;
 }
 
-/* Hero Section */
 .register-hero {
   background: linear-gradient(135deg, var(--primary) 0%, #0a2f58 100%);
   padding: 50px 20px;
@@ -31,7 +30,6 @@
   line-height: 1.6;
 }
 
-/* Register Wrapper */
 .register-wrapper {
   display: flex;
   justify-content: center;
@@ -66,7 +64,6 @@
   font-size: 0.95rem;
 }
 
-/* Form Styles */
 .register-form {
   display: flex;
   flex-direction: column;
@@ -122,17 +119,22 @@
   font-size: 1.1rem;
   z-index: 1;
   pointer-events: none;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
+  padding: 14px 16px;
   border: 2px solid #e6eef6;
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.3s ease;
   background: #fff;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -155,6 +157,11 @@
   padding: 0;
   z-index: 1;
   transition: transform 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .password-toggle:hover {
@@ -165,7 +172,22 @@
   outline: none;
 }
 
-/* Checkbox Styles */
+/* Ajuste para inputs con password toggle - aumentar padding derecho */
+.input-wrapper:has(.password-toggle) .form-input {
+  padding-right: 56px;
+}
+
+/* Fallback para navegadores sin soporte :has() - aplicar a todos los inputs de contraseña */
+.input-wrapper .form-input[type="password"] {
+  padding-right: 56px;
+}
+
+/* También cuando se muestra la contraseña (type="text" pero con password-toggle presente) */
+.input-wrapper .form-input[autocomplete="current-password"],
+.input-wrapper .form-input[autocomplete="new-password"] {
+  padding-right: 56px;
+}
+
 .checkbox-group {
   margin: 0;
 }
@@ -220,7 +242,52 @@
   user-select: none;
 }
 
-/* Error Message */
+.admin-warning {
+  margin-top: 12px;
+  padding: 12px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  color: #92400e;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  animation: slideIn 0.3s ease-out;
+}
+
+.admin-code-group {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f9fafb;
+  border: 2px solid #e6eef6;
+  border-radius: 12px;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.admin-code-group label {
+  color: #1a1a2e;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.admin-code-input {
+  border-color: #1a1a2e;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.admin-code-input:focus {
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.1);
+}
+
+.admin-code-hint {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
 .form-error {
   display: flex;
   align-items: center;
@@ -238,7 +305,6 @@
   font-size: 1.2rem;
 }
 
-/* Submit Button */
 .register-submit-btn {
   width: 100%;
   padding: 16px;
@@ -273,7 +339,6 @@
   animation: spin 0.8s linear infinite;
 }
 
-/* Divider */
 .register-divider {
   text-align: center;
   margin: 24px 0;
@@ -300,7 +365,6 @@
   right: 0;
 }
 
-/* Login Link */
 .login-link {
   width: 100%;
   padding: 14px;
@@ -316,7 +380,6 @@
   box-shadow: 0 4px 12px rgba(13, 59, 102, 0.15);
 }
 
-/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -345,7 +408,6 @@
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .register-hero {
     padding: 40px 20px;

@@ -1,29 +1,254 @@
 [
   {
     "idProducto": 1,
-    "nombre": "Bomba hidráulica",
-    "descripcion": "Bomba de alta presión para uso industrial",
-    "idCategoria": { "idCategoria": 1, "nombre": "Hidráulica" },
-    "stock": 10,
-    "precio": 12000,
-    "imagen": "/assets/bombas-hidraulicas.jpg"
+    "nombre": "MANGUERA MP 1\"",
+    "descripcion": "MANGUERA MP 1\"",
+    "idCategoria": { "idCategoria": 1, "nombre": "MANGUERAS" },
+    "stock": 15,
+    "precio": 15500,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
   },
   {
     "idProducto": 2,
-    "nombre": "Cilindro de pistón",
-    "descripcion": "Cilindro para aplicaciones industriales",
-    "idCategoria": { "idCategoria": 1, "nombre": "Hidráulica" },
-    "stock": 5,
-    "precio": 8000,
-    "imagen": "/assets/cilindro-de-piston.jpg"
+    "nombre": "MANGUERA MP 3/4",
+    "descripcion": "MANGUERA MP 3/4",
+    "idCategoria": { "idCategoria": 1, "nombre": "MANGUERAS" },
+    "stock": 20,
+    "precio": 12300,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
   },
   {
     "idProducto": 3,
-    "nombre": "Manguera reforzada",
-    "descripcion": "Manguera flexible reforzada con malla metálica",
-    "idCategoria": { "idCategoria": 2, "nombre": "Accesorios" },
+    "nombre": "MANGUERA HIDR. 1\" R12",
+    "descripcion": "MANGUERA HIDR. 1\" R12",
+    "idCategoria": { "idCategoria": 1, "nombre": "MANGUERAS" },
+    "stock": 12,
+    "precio": 33900,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
+  },
+  {
+    "idProducto": 4,
+    "nombre": "MANGUERA HIDR. 3/4 R12",
+    "descripcion": "MANGUERA HIDR. 3/4 R12",
+    "idCategoria": { "idCategoria": 1, "nombre": "MANGUERAS" },
+    "stock": 18,
+    "precio": 24800,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
+  },
+  {
+    "idProducto": 5,
+    "nombre": "MANGUERA HIDR. 1/2 R2 AT",
+    "descripcion": "MANGUERA HIDR. 1/2 R2 AT",
+    "idCategoria": { "idCategoria": 1, "nombre": "MANGUERAS" },
+    "stock": 25,
+    "precio": 8700,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
+  },
+  {
+    "idProducto": 6,
+    "nombre": "MF 1/4 NPT p/ 1/4",
+    "descripcion": "MF 1/4 NPT p/ 1/4",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 30,
+    "precio": 3750,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 7,
+    "nombre": "MF 3/8 NPT p/ 3/8",
+    "descripcion": "MF 3/8 NPT p/ 3/8",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 28,
+    "precio": 6000,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 8,
+    "nombre": "MF 1/2 NPT p/ 1/2",
+    "descripcion": "MF 1/2 NPT p/ 1/2",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 22,
+    "precio": 7050,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 9,
+    "nombre": "MF 3/4 NPT p/ 3/4",
+    "descripcion": "MF 3/4 NPT p/ 3/4",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 15,
+    "precio": 11400,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 10,
+    "nombre": "MF 1\" NPT p/ 1\"",
+    "descripcion": "MF 1\" NPT p/ 1\"",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 10,
+    "precio": 19500,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 11,
+    "nombre": "HG 1/4 C/ESF p/ 1/4",
+    "descripcion": "HG 1/4 C/ESF p/ 1/4",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 35,
+    "precio": 4200,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 12,
+    "nombre": "Conector 1/4 x 1/4 NPT M/M",
+    "descripcion": "Conector 1/4 x 1/4 NPT M/M",
+    "idCategoria": { "idCategoria": 3, "nombre": "CONECTORES" },
+    "stock": 50,
+    "precio": 1000,
+    "imagen": "/assets/images/Conectores.jpg"
+  },
+  {
+    "idProducto": 13,
+    "nombre": "Conector 3/8 x 3/8 NPT M/M",
+    "descripcion": "Conector 3/8 x 3/8 NPT M/M",
+    "idCategoria": { "idCategoria": 3, "nombre": "CONECTORES" },
+    "stock": 45,
+    "precio": 1500,
+    "imagen": "/assets/images/Conectores.jpg"
+  },
+  {
+    "idProducto": 14,
+    "nombre": "Conector 1/2 x 1/2 NPT M/M",
+    "descripcion": "Conector 1/2 x 1/2 NPT M/M",
+    "idCategoria": { "idCategoria": 3, "nombre": "CONECTORES" },
+    "stock": 40,
+    "precio": 2000,
+    "imagen": "/assets/images/Conectores.jpg"
+  },
+  {
+    "idProducto": 15,
+    "nombre": "Conector 3/4 x 3/4  NPT M/M",
+    "descripcion": "Conector 3/4 x 3/4  NPT M/M",
+    "idCategoria": { "idCategoria": 3, "nombre": "CONECTORES" },
+    "stock": 30,
+    "precio": 3200,
+    "imagen": "/assets/images/Conectores.jpg"
+  },
+  {
+    "idProducto": 16,
+    "nombre": "Conector 1\" x 1\" NPT M/M",
+    "descripcion": "Conector 1\" x 1\" NPT M/M",
+    "idCategoria": { "idCategoria": 3, "nombre": "CONECTORES" },
+    "stock": 25,
+    "precio": 5200,
+    "imagen": "/assets/images/Conectores.jpg"
+  },
+  {
+    "idProducto": 17,
+    "nombre": "Conector 1/4 NPT x 9/16 Vir M/M",
+    "descripcion": "Conector 1/4 NPT x 9/16 Vir M/M",
+    "idCategoria": { "idCategoria": 3, "nombre": "CONECTORES" },
+    "stock": 35,
+    "precio": 900,
+    "imagen": "/assets/images/Conectores.jpg"
+  },
+  {
+    "idProducto": 18,
+    "nombre": "O´RING NITRILO 70 SHORE Øi. 12.42 x Øe. 15.98 x Sec. 1.78",
+    "descripcion": "O´RING NITRILO 70 SHORE Øi. 12.42 x Øe. 15.98 x Sec. 1.78",
+    "idCategoria": { "idCategoria": 4, "nombre": "O'RINGS" },
+    "stock": 100,
+    "precio": 34.34,
+    "imagen": "/assets/images/O'rings.jpg"
+  },
+  {
+    "idProducto": 19,
+    "nombre": "O´RING NITRILO 70 SHORE Øi. 14.00 x Øe. 17.56 x Sec. 1.78",
+    "descripcion": "O´RING NITRILO 70 SHORE Øi. 14.00 x Øe. 17.56 x Sec. 1.78",
+    "idCategoria": { "idCategoria": 4, "nombre": "O'RINGS" },
+    "stock": 95,
+    "precio": 37.8,
+    "imagen": "/assets/images/O'rings.jpg"
+  },
+  {
+    "idProducto": 20,
+    "nombre": "O´RING NITRILO 70 SHORE Øi. 15.60 x Øe. 19.16 x Sec. 1.78",
+    "descripcion": "O´RING NITRILO 70 SHORE Øi. 15.60 x Øe. 19.16 x Sec. 1.78",
+    "idCategoria": { "idCategoria": 4, "nombre": "O'RINGS" },
+    "stock": 90,
+    "precio": 39.6,
+    "imagen": "/assets/images/O'rings.jpg"
+  },
+  {
+    "idProducto": 21,
+    "nombre": "O´RING NITRILO 70 SHORE Øi. 17.17 x Øe. 20.73 x Sec. 1.78",
+    "descripcion": "O´RING NITRILO 70 SHORE Øi. 17.17 x Øe. 20.73 x Sec. 1.78",
+    "idCategoria": { "idCategoria": 4, "nombre": "O'RINGS" },
+    "stock": 85,
+    "precio": 43.74,
+    "imagen": "/assets/images/O'rings.jpg"
+  },
+  {
+    "idProducto": 22,
+    "nombre": "O´RING NITRILO 70 SHORE Øi. 1.24 x Øe. 6.48 x Sec. 2.62",
+    "descripcion": "O´RING NITRILO 70 SHORE Øi. 1.24 x Øe. 6.48 x Sec. 2.62",
+    "idCategoria": { "idCategoria": 4, "nombre": "O'RINGS" },
+    "stock": 120,
+    "precio": 26.53,
+    "imagen": "/assets/images/O'rings.jpg"
+  },
+  {
+    "idProducto": 23,
+    "nombre": "O´RING NITRILO 70 SHORE Øi. 2.06 x Øe. 7.30 x Sec. 2.62",
+    "descripcion": "O´RING NITRILO 70 SHORE Øi. 2.06 x Øe. 7.30 x Sec. 2.62",
+    "idCategoria": { "idCategoria": 4, "nombre": "O'RINGS" },
+    "stock": 115,
+    "precio": 26.53,
+    "imagen": "/assets/images/O'rings.jpg"
+  },
+  {
+    "idProducto": 24,
+    "nombre": "Camisa 1/4 R1",
+    "descripcion": "Camisa 1/4 R1",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 60,
+    "precio": 1200,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 25,
+    "nombre": "Camisa 3/8 R1",
+    "descripcion": "Camisa 3/8 R1",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 55,
+    "precio": 1500,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 26,
+    "nombre": "Camisa 1/2 R1",
+    "descripcion": "Camisa 1/2 R1",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 50,
+    "precio": 2100,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 27,
+    "nombre": "Brida Recta 1/2 - 31,70 mm p/ 1/2",
+    "descripcion": "Brida Recta 31,70 mm p/ 1/2",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
     "stock": 20,
-    "precio": 3000,
-    "imagen": "/assets/manguera-reforzada.jpg"
+    "precio": 7000,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 28,
+    "nombre": "Brida Curva 1/2 - 31,70 mm p/ 1/2",
+    "descripcion": "Brida Curva 31,70 mm p/ 1/2",
+    "idCategoria": { "idCategoria": 2, "nombre": "TERMINALES" },
+    "stock": 18,
+    "precio": 9700,
+    "imagen": "/assets/images/Terminales.jpg"
   }
 ]

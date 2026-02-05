@@ -4,28 +4,57 @@ import type { Cliente } from '../types/Cliente';
 
 interface Credentials {
   email: string;
-  password: string;
+  password: string; // Cambiado de 'contraseña' a 'password'
 }
 
-export async function login(credentials: Credentials): Promise<Cliente> {
+export async function login(credentials: Credentials): Promise<Cliente & { token: string }> {
+  console.log('Datos enviados al backend:', credentials);
+
   if (USE_MOCKS) {
     const clientes = await mock.listarClientesMock();
     const user = clientes.find(
-      (c) => c.email === credentials.email && c.contraseña === credentials.password
+      (c) => c.email === credentials.email && c.password === credentials.password
     );
     if (!user) throw new Error('Credenciales inválidas');
-    return user as Cliente;
+    return { ...user, token: 'mock-token', esAdmin: user.esAdmin } as Cliente & { token: string };
   }
 
-  const res = await axios.post('/auth/login', {
+  const API_URL = 'http://localhost:3000/api/auth';
+
+  const res = await axios.post(`${API_URL}/login`, {
     email: credentials.email,
-    password: credentials.password,
+    password: credentials.password, // Cambiado de 'contraseña' a 'password'
   });
-  return res.data as Cliente;
+
+  console.log('Respuesta completa del backend:', res.data);
+  console.log('Datos procesados en authService antes de devolver al frontend:', res.data); // Log para verificar el contenido de la respuesta del backend
+
+  // Devolver el token junto con los datos del cliente
+  return {
+    id: res.data.id, // Cambiado de 'idusuario' a 'id'
+    ...res.data,
+    esAdmin: res.data.esAdmin,
+    token: res.data.token,
+  } as Cliente & {
+    token: string;
+  };
 }
 
 export async function logout() {
   if (USE_MOCKS) return true;
   await axios.post('/auth/logout');
   return true;
+}
+
+export async function crearUsuario(data: any): Promise<any> {
+  try {
+    const response = await axios.post('/usuarios', data);
+    return response.data;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error('Error al crear el usuario. Inténtalo nuevamente.');
+    }
+  }
 }

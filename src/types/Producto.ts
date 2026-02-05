@@ -1,13 +1,12 @@
-import type { Categoria } from './Categoria';
-
 export interface Producto {
   idProducto: number;
   nombre: string;
   descripcion: string;
-  idCategoria: Categoria; // objeto categoría completo
+  idCategoria: number; // Cambiado a número para reflejar los datos del backend
   stock: number;
   precio: number;
   imagen: string;
+  categoria_nombre?: string; // Nombre de la categoría, opcional
 }
 
 // Para crear un nuevo producto (POST)

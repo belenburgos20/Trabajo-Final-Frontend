@@ -3,16 +3,18 @@ export interface Cliente {
   nombre?: string;
   email: string;
   CUIT?: string;
+  cuit?: string; // Agregado para manejar la propiedad en minúsculas que devuelve el backend
   direccion?: string;
   telefono?: number;
   localidad?: string;
   esAdmin?: boolean;
-  contraseña?: string; // el backend la devuelve si está en el JSON
+  password?: string; // el backend la devuelve si está en el JSON
+  token?: string; // Agregado para incluir el token en la respuesta del backend
 }
 
 export interface NuevoCliente {
   email: string;
-  contraseña: string;
+  password: string;
   nombre?: string;
   CUIT?: string;
   direccion?: string;
@@ -23,7 +25,7 @@ export interface NuevoCliente {
 
 export interface UpdateCliente {
   email?: string;
-  contraseña?: string;
+  password?: string;
   nombre?: string;
   CUIT?: string;
   direccion?: string;

@@ -4,7 +4,6 @@ import '../../../public/assets/css/General/Home.css';
 export default function Home() {
   return (
     <div className="home-page">
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-overlay"></div>
         <div className="container hero-content">
@@ -14,7 +13,7 @@ export default function Home() {
               Soluciones integrales en oleohidráulica. Encuentra productos de calidad y solicita presupuestos personalizados.
             </p>
             <div className="hero-buttons">
-              <Link to="/login" className="btn btn-accent btn-hero">
+              <Link to="/login-cliente" className="btn btn-accent btn-hero">
                 Ingresar
               </Link>
               <Link to="/register" className="btn btn-outline-primary btn-hero">
@@ -47,7 +46,6 @@ export default function Home() {
       </div>
 
       <div className="container">
-        {/* Características */}
         <section className="features-section">
           <h2 className="section-title">¿Por qué elegirnos?</h2>
           <div className="features-grid">
@@ -70,7 +68,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Productos Destacados */}
         <section className="products-section">
           <h2 className="section-title">Algunos de nuestros productos</h2>
           <p className="section-subtitle">
@@ -83,12 +80,12 @@ export default function Home() {
             <div className="product-showcase">
               <div className="product-image-wrapper">
                 <img 
-                  src="/assets/images/bombas-hidraulicas.jpg" 
-                  alt="Bombas Hidráulicas" 
+                  src="/assets/images/Bomba-hidraulica.jpg" 
+                  alt="Bombas Hidraulicas" 
                   className="product-image"
                 />
                 <div className="product-overlay">
-                  <h3>Bombas Hidráulicas</h3>
+                  <h3>Bombas Hidraulicas</h3>
                   <p>Equipos de alta eficiencia para sistemas oleohidráulicos</p>
                 </div>
               </div>
@@ -96,12 +93,12 @@ export default function Home() {
             <div className="product-showcase">
               <div className="product-image-wrapper">
                 <img 
-                  src="/assets/images/cilindro-de-piston.jpg" 
-                  alt="Cilindros de Pistón" 
+                  src="/assets/images/cilindro-hidraulico.png" 
+                  alt="Cilindros Hidraulicos" 
                   className="product-image"
                 />
                 <div className="product-overlay">
-                  <h3>Cilindros de Pistón</h3>
+                  <h3>Cilindros Hidraulicos</h3>
                   <p>Componentes robustos para aplicaciones industriales</p>
                 </div>
               </div>
@@ -187,7 +184,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="cta-section">
           <div className="cta-content">
             <h2>¿Listo para comenzar?</h2>

@@ -1,38 +1,115 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { Presupuesto } from '../../types/Presupuesto';
-import { getPresupuestos } from '../../services/presupestosService';
+import { usePresupuestos } from '../../hooks';
 import PresupuestoCard from '../../components/PresupuestoCard/Index';
+import '../../../public/assets/css/admin/Presupuestos.css';
 
 export default function PresupuestosAdmin() {
-  const [presupuestos, setPresupuestos] = useState<Presupuesto[]>([]);
+  const { presupuestos, isLoading, updatePresupuesto } = usePresupuestos(true);
+
   const [filter, setFilter] = useState<string>('all');
   const [selected, setSelected] = useState<Presupuesto | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getPresupuestos();
-        setPresupuestos(data);
-      } catch (err) {
-        console.error(err);
+  const handleActualizarEstado = async (id: number, nuevoEstado: string) => {
+    const updated = await updatePresupuesto(String(id), { estado: nuevoEstado });
+    if (updated) {
+      if (selected?.idPresupuesto === id) {
+        setSelected((prev) => (prev ? { ...prev, estado: nuevoEstado } : null));
       }
-    })();
-  }, []);
+    }
+  };
 
   const filtered =
     filter === 'all' ? presupuestos : presupuestos.filter((p) => p.estado === filter);
 
-  return (
-    <div className="main-content page">
-      <div className="container">
-        <h1 className="text-primary mb-4">Gestión de Presupuestos</h1>
+  const searched = searchQuery
+    ? filtered.filter(
+        (p) =>
+          String(p.idPresupuesto).includes(searchQuery) ||
+          String(p.idUsuario).includes(searchQuery) ||
+          String(p.montoTotal).includes(searchQuery)
+      )
+    : filtered;
 
-        <section className="section mb-3 d-flex justify-content-between align-items-center">
-          <h2 className="mb-0">Presupuestos</h2>
-          <div className="d-flex gap-2 align-items-center">
-            <label className="mb-0">Estado:</label>
+  const presupuestosPendientes = presupuestos.filter((p) => p.estado === 'pendiente').length;
+  const presupuestosAprobados = presupuestos.filter((p) => p.estado === 'aprobado').length;
+  const totalMonto = presupuestos.reduce((sum, p) => sum + p.montoTotal, 0);
+
+  if (isLoading) {
+    return (
+      <div className="admin-presupuestos">
+        <div className="container">
+          <div className="loading-state">
+            <div className="spinner-large"></div>
+            <p>Cargando presupuestos...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-presupuestos">
+      <div className="page-header">
+        <div className="container">
+          <h1 className="page-title">Gestión de Presupuestos</h1>
+          <p className="page-subtitle">Revisa y administra todos los presupuestos solicitados</p>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className="quick-stats">
+          <div className="quick-stat-card">
+            <span className="quick-stat-icon">📋</span>
+            <div>
+              <p className="quick-stat-value">{presupuestos.length}</p>
+              <p className="quick-stat-label">Total Presupuestos</p>
+            </div>
+          </div>
+          <div className="quick-stat-card stat-warning">
+            <span className="quick-stat-icon">⏳</span>
+            <div>
+              <p className="quick-stat-value">{presupuestosPendientes}</p>
+              <p className="quick-stat-label">Pendientes</p>
+            </div>
+          </div>
+          <div className="quick-stat-card stat-success">
+            <span className="quick-stat-icon">✅</span>
+            <div>
+              <p className="quick-stat-value">{presupuestosAprobados}</p>
+              <p className="quick-stat-label">Aprobados</p>
+            </div>
+          </div>
+          <div className="quick-stat-card stat-info">
+            <span className="quick-stat-icon">💵</span>
+            <div>
+              <p className="quick-stat-value">${totalMonto.toLocaleString()}</p>
+              <p className="quick-stat-label">Monto Total</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="filters-section">
+          <div className="search-wrapper">
+            <span className="search-icon">🔍</span>
+            <input
+              type="text"
+              placeholder="Buscar por ID, usuario o monto..."
+              className="search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <button className="clear-search" onClick={() => setSearchQuery('')}>
+                ✕
+              </button>
+            )}
+          </div>
+          <div className="filter-wrapper">
+            <label>Filtrar por estado:</label>
             <select
-              className="form-control"
+              className="filter-select"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
@@ -42,50 +119,98 @@ export default function PresupuestosAdmin() {
               <option value="cancelado">Cancelado</option>
             </select>
           </div>
-        </section>
+        </div>
 
-        <section className="section">
-          <div className="table-responsive">
-            <table className="table table-hover">
+        <div className="table-section">
+          <div className="table-header">
+            <h2>Lista de Presupuestos</h2>
+            <span className="table-count">
+              {searched.length} {searched.length === 1 ? 'presupuesto' : 'presupuestos'}
+            </span>
+          </div>
+          <div className="table-container">
+            <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>ID</th>
                   <th>Usuario</th>
                   <th>Fecha</th>
-                  <th>Total</th>
+                  <th>Fecha Entrega</th>
+                  <th>Monto Total</th>
                   <th>Estado</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((p) => (
-                  <tr
-                    key={p.idPresupuesto}
-                    onClick={() => setSelected(p)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <td>{p.idPresupuesto}</td>
-                    <td>{p.idUsuario}</td>
-                    <td>{p.fecha}</td>
-                    <td>{p.montoTotal}</td>
-                    <td>
-                      <span
-                        className={`badge ${p.estado === 'pendiente' ? 'pending' : p.estado === 'aprobado' ? 'approved' : 'cancelled'}`}
-                      >
-                        {p.estado}
-                      </span>
+                {searched.length > 0 ? (
+                  searched.map((p) => (
+                    <tr
+                      key={p.idPresupuesto}
+                      className={selected?.idPresupuesto === p.idPresupuesto ? 'selected' : ''}
+                    >
+                      <td className="table-id">#{p.idPresupuesto}</td>
+                      <td>Cliente #{p.idUsuario}</td>
+                      <td>{new Date(p.fecha).toLocaleDateString('es-AR')}</td>
+                      <td>{new Date(p.fechaEntrega).toLocaleDateString('es-AR')}</td>
+                      <td className="table-amount">${p.montoTotal.toLocaleString()}</td>
+                      <td>
+                        <span className={`status-badge status-${p.estado}`}>{p.estado}</span>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-sm btn-outline-primary"
+                          onClick={() =>
+                            setSelected(selected?.idPresupuesto === p.idPresupuesto ? null : p)
+                          }
+                        >
+                          {selected?.idPresupuesto === p.idPresupuesto ? 'Ocultar' : 'Ver Detalle'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="empty-state">
+                      {searchQuery || filter !== 'all'
+                        ? 'No se encontraron presupuestos con ese criterio'
+                        : 'No hay presupuestos registrados'}
                     </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
-          {selected && (
-            <section className="section mt-3">
-              <h3>Detalle del presupuesto seleccionado</h3>
-              <PresupuestoCard presupuesto={selected} />
-            </section>
-          )}
-        </section>
+        </div>
+
+        {selected && (
+          <div className="detail-section">
+            <div className="detail-header">
+              <h3>Detalle del Presupuesto #{selected.idPresupuesto}</h3>
+              <button onClick={() => setSelected(null)}>✕ Cerrar</button>
+            </div>
+
+            {/* Usamos la card como un contenedor */}
+            <PresupuestoCard presupuesto={selected} onActualizarEstado={handleActualizarEstado}>
+              {/* Todo lo que pongas aquí adentro es el "children" */}
+              {selected.estado.toLowerCase() === 'pendiente' && (
+                <div className="d-flex gap-2">
+                  <button
+                    className="btn btn-success flex-grow-1"
+                    onClick={() => handleActualizarEstado(selected.idPresupuesto, 'aprobado')}
+                  >
+                    Aceptar Presupuesto
+                  </button>
+                  <button
+                    className="btn btn-danger flex-grow-1"
+                    onClick={() => handleActualizarEstado(selected.idPresupuesto, 'cancelado')}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              )}
+            </PresupuestoCard>
+          </div>
+        )}
       </div>
     </div>
   );

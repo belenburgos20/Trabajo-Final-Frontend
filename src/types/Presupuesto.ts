@@ -7,8 +7,8 @@ export interface Presupuesto {
   fecha: string; // Dates vienen como string en JSON
   detalle: DetallePresupuesto[];
   montoTotal: number;
-  fechaEntrega: string;
-  estado: string;
+  fechaEntrega?: string; // Ahora es opcional
+  estado?: string; // Ahora es opcional
 }
 
 // Para crear un nuevo presupuesto (POST)

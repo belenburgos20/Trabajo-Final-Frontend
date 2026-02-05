@@ -1,56 +1,68 @@
-import { useEffect, useState } from 'react';
-import { getPresupuestosPorUsuario } from '../../services/presupestosService';
+import { useEffect, useContext } from 'react';
+import { usePresupuestos } from '../../hooks';
+import { AppContext } from '../../context/AppContext';
 import PresupuestoCard from '../../components/PresupuestoCard/Index';
 import type { Presupuesto } from '../../types/Presupuesto';
 
 export default function PresupuestosHistorial() {
-  const [historial, setHistorial] = useState<Presupuesto[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const appCtx = useContext(AppContext);
+  const { presupuestos, isLoading, error, fetchPresupuestosPorUsuario } = usePresupuestos(false);
+
+  const handleActualizarEstado = async (): Promise<void> => {
+    // El estado se actualiza automáticamente en el hook
+  };
+
+  const normalizePresupuesto = (presupuesto: any): Presupuesto => {
+    return {
+      idPresupuesto: presupuesto.idPresupuesto,
+      idUsuario: presupuesto.idUsuario,
+      fecha: presupuesto.fecha,
+      detalle: presupuesto.detalle || [],
+      montoTotal: presupuesto.montoTotal || 0,
+      fechaEntrega: presupuesto.fechaEntrega || '',
+      estado: presupuesto.estado || 'desconocido',
+    };
+  };
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      try {
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        const id = user?.id;
-        if (!id) {
-          setError('Usuario no autenticado');
-          setLoading(false);
-          return;
-        }
-        const data = await getPresupuestosPorUsuario(String(id));
-        setHistorial(data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          console.error(err);
-          setError(err.message);
-        } else {
-          setError('Error desconocido al obtener historiales');
-        }
-      } finally {
-        setLoading(false);
+    const user = appCtx?.user;
+    console.log('Usuario en contexto:', user); // Log para verificar el usuario en el contexto
+    if (user?.id) {
+      const userId = Number(user.id);
+      if (isNaN(userId)) {
+        console.error('ID del usuario no es un número válido:', user.id);
+        return;
       }
-    })();
-  }, []);
+      console.log('ID del usuario válido:', user.id);
+      fetchPresupuestosPorUsuario(userId.toString());
+    } else {
+      console.error('ID de usuario no definido en el contexto'); // Log de error si el ID no está definido
+    }
+  }, [appCtx?.user?.id, fetchPresupuestosPorUsuario]);
 
-  if (loading) return <p>Cargando...</p>;
+  if (isLoading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
+
+  const presupuestosNormalizados = presupuestos.map(normalizePresupuesto);
 
   return (
     <div className="main-content page">
       <div className="container">
         <section className="section" style={{ maxWidth: '760px', margin: '0 auto' }}>
           <h1 className="text-primary mb-4 text-center">Mis presupuestos</h1>
-          {loading && <p className="text-center">Cargando presupuestos...</p>}
+          {isLoading && <p className="text-center">Cargando presupuestos...</p>}
           {error && <p className="text-center text-danger">{error}</p>}
-          {!loading && !error && historial.length === 0 && (
+          {!isLoading && !error && presupuestos.length === 0 && (
             <p className="text-center">No hay presupuestos.</p>
           )}
 
           <div className="d-flex flex-column gap-3">
-            {historial.map((p) => (
-              <PresupuestoCard key={p.idPresupuesto} presupuesto={p} />
+            {presupuestosNormalizados.map((p) => (
+              <PresupuestoCard
+                key={p.idPresupuesto}
+                presupuesto={p}
+                onActualizarEstado={handleActualizarEstado}
+              />
             ))}
           </div>
         </section>
