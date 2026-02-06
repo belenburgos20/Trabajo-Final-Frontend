@@ -8,18 +8,13 @@ export default function PresupuestosHistorial() {
   const appCtx = useContext(AppContext);
   const { presupuestos, isLoading, error, fetchPresupuestosPorUsuario } = usePresupuestos(false);
 
-  const handleActualizarEstado = async (): Promise<void> => {
-    // El estado se actualiza automáticamente en el hook
-  };
-
   const normalizePresupuesto = (presupuesto: any): Presupuesto => {
     return {
-      idPresupuesto: presupuesto.idPresupuesto,
+      idPresupuesto: presupuesto.id,
       idUsuario: presupuesto.idUsuario,
-      fecha: presupuesto.fecha,
-      detalle: presupuesto.detalle || [],
+      fecha: presupuesto.fecha_creacion,
+      detalle: [],
       montoTotal: presupuesto.montoTotal || 0,
-      fechaEntrega: presupuesto.fechaEntrega || '',
       estado: presupuesto.estado || 'desconocido',
     };
   };
@@ -61,7 +56,7 @@ export default function PresupuestosHistorial() {
               <PresupuestoCard
                 key={p.idPresupuesto}
                 presupuesto={p}
-                onActualizarEstado={handleActualizarEstado}
+               // onActualizarEstado={handleActualizarEstado}
               />
             ))}
           </div>

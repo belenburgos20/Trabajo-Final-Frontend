@@ -56,6 +56,7 @@ export default function Carrito() {
     }
 
     const detalle: NuevoDetallePresupuesto[] = carrito.map((p) => ({
+      idPresupuesto: 0, // Se asignará en el backend
       idProducto: p.idproducto ?? 0, // Cambiado de p.id a p.idproducto
       cantidad: p.cantidad,
       precio: p.precio,

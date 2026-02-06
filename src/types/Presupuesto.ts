@@ -24,7 +24,9 @@ export interface NuevoPresupuesto {
   // detalle: array completo de productos seleccionados
   detalle: NuevoDetallePresupuesto[];
 }
-
+export interface CrearPresupuestoResponse {
+  idPresupuesto: number;
+}
 // Para actualizar un presupuesto existente (PUT/PATCH)
 export interface UpdatePresupuesto {
   fecha?: string;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import * as presupuestosService from '../services/presupestosService';
-import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto } from '../types/Presupuesto';
+import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto, CrearPresupuestoResponse } from '../types/Presupuesto';
 
 interface UsePresupuestosReturn {
   presupuestos: Presupuesto[];
@@ -11,7 +11,7 @@ interface UsePresupuestosReturn {
   fetchPresupuestosPorUsuario: (idUsuario: string) => Promise<Presupuesto[]>;
   fetchPresupuestosPorFecha: (fecha: string) => Promise<Presupuesto[]>;
   fetchPresupuestosPorEstado: (estado: string) => Promise<Presupuesto[]>;
-  createPresupuesto: (data: NuevoPresupuesto) => Promise<Presupuesto | null>;
+  createPresupuesto: (data: NuevoPresupuesto) => Promise<CrearPresupuestoResponse | null>;
   updatePresupuesto: (id: string, data: UpdatePresupuesto) => Promise<Presupuesto | null>;
   deletePresupuesto: (id: string) => Promise<boolean>;
 }
@@ -109,14 +109,16 @@ export function usePresupuestos(autoFetch = false): UsePresupuestosReturn {
     }
   };
 
-  const createPresupuesto = async (data: NuevoPresupuesto): Promise<Presupuesto | null> => {
+  const createPresupuesto = async (data: NuevoPresupuesto): Promise<CrearPresupuestoResponse | null> => {
     setIsLoading(true);
     setError(null);
     try {
-      const nuevoPresupuesto = await presupuestosService.crearPresupuesto(data);
-      // Actualizar la lista de presupuestos
+      const res = await presupuestosService.crearPresupuesto(data);
+      if(!res.idPresupuesto){
+        throw new Error("No se pudo crear el presupuesto");
+      }
       await fetchPresupuestos();
-      return nuevoPresupuesto;
+      return res;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al crear presupuesto';
       setError(errorMessage);

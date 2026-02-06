@@ -53,7 +53,7 @@ export default function ProductosList() {
     setCarrito((prev) => {
       const index = prev.findIndex((p) => p.idProducto === productoTransformado.idProducto);
 
-      let nuevo = [...prev];
+      const nuevo = [...prev];
 
       if (index === -1 && cantidad > 0) {
         nuevo.push({ ...productoTransformado, cantidad });
