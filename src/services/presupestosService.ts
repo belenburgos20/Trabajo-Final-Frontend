@@ -46,8 +46,14 @@ export async function actualizarPresupuesto(
   id: string,
   data: UpdatePresupuesto
 ): Promise<Presupuesto> {
-  if (USE_MOCKS) return (await mock.actualizarPresupuestoMock(id, data)) as Presupuesto;
-  const response = await axios.put(`${API_URL}/${id}`, data);
+  if (USE_MOCKS) {return (await mock.actualizarPresupuestoMock(id, data)) as Presupuesto;}
+  const token= localStorage.getItem('token');
+  const response = await axios.put(`${API_URL}/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return response.data;
 }
 export async function eliminarPresupuesto(id: string): Promise<{ message: string }> {

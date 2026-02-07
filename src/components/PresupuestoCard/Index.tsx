@@ -5,7 +5,7 @@ import { getPresupuestoById } from '../../services/presupestosService';
 interface Props {
   presupuesto: Presupuesto;
   children?: React.ReactNode;
-// onActualizarEstado: (id: number, estado: string) => Promise<void>;
+  onActualizarEstado?: (id: number, nuevoEstado: string) => Promise<void>;
 }
 
 export default function PresupuestoCard({ presupuesto, children }: Props) {

@@ -31,7 +31,16 @@ export function usePresupuestos(autoFetch = false): UsePresupuestosReturn {
     setError(null);
     try {
       const data = await presupuestosService.getPresupuestos();
-      setPresupuestos(data);
+      const presupuestosAdaptados: Presupuesto[] = data.map((p: any) => ({
+        idPresupuesto: p.idPresupuesto,
+        idUsuario: p.nombre_usuario ?? p.idUsuario,
+        fecha: p.fecha_creacion,
+        estado: p.estado,
+        detalle: p.detalle ?? [],
+        montoTotal: p.montoTotal,
+      }));
+
+      setPresupuestos(presupuestosAdaptados);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al cargar presupuestos';
       setError(errorMessage);

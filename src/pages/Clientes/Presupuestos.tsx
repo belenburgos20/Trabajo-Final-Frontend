@@ -56,7 +56,7 @@ export default function PresupuestosHistorial() {
               <PresupuestoCard
                 key={p.idPresupuesto}
                 presupuesto={p}
-               // onActualizarEstado={handleActualizarEstado}
+              //  onActualizarEstado={handleActualizarEstado}
               />
             ))}
           </div>

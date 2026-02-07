@@ -5,7 +5,7 @@ import PresupuestoCard from '../../components/PresupuestoCard/Index';
 import '../../../public/assets/css/admin/Presupuestos.css';
 
 export default function PresupuestosAdmin() {
-  const { presupuestos, isLoading, updatePresupuesto } = usePresupuestos(true);
+  const { presupuestos, isLoading, updatePresupuesto, fetchPresupuestos } = usePresupuestos(true);
 
   const [filter, setFilter] = useState<string>('all');
   const [selected, setSelected] = useState<Presupuesto | null>(null);
@@ -14,6 +14,7 @@ export default function PresupuestosAdmin() {
   const handleActualizarEstado = async (id: number, nuevoEstado: string) => {
     const updated = await updatePresupuesto(String(id), { estado: nuevoEstado });
     if (updated) {
+      await fetchPresupuestos();
       if (selected?.idPresupuesto === id) {
         setSelected((prev) => (prev ? { ...prev, estado: nuevoEstado } : null));
       }
@@ -135,82 +136,79 @@ export default function PresupuestosAdmin() {
                   <th>ID</th>
                   <th>Usuario</th>
                   <th>Fecha</th>
-                  <th>Fecha Entrega</th>
                   <th>Monto Total</th>
                   <th>Estado</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {searched.length > 0 ? (
-                  searched.map((p) => (
+                  {searched.map((p) => (
+                    <>
                     <tr
                       key={p.idPresupuesto}
                       className={selected?.idPresupuesto === p.idPresupuesto ? 'selected' : ''}
                     >
                       <td className="table-id">#{p.idPresupuesto}</td>
-                      <td>Cliente #{p.idUsuario}</td>
-                      <td>{new Date(p.fecha).toLocaleDateString('es-AR')}</td>
-                      <td>{new Date(p.fechaEntrega).toLocaleDateString('es-AR')}</td>
+                      <td>Cliente {p.idUsuario}</td>
+                      <td>{p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : "-"}</td>
                       <td className="table-amount">${p.montoTotal.toLocaleString()}</td>
                       <td>
                         <span className={`status-badge status-${p.estado}`}>{p.estado}</span>
                       </td>
                       <td>
-                        <button
-                          className="btn btn-sm btn-outline-primary"
+                        <button className='btn btn-outline-primary btn-sm'
                           onClick={() =>
-                            setSelected(selected?.idPresupuesto === p.idPresupuesto ? null : p)
-                          }
+                            setSelected(
+                              selected?.idPresupuesto === p.idPresupuesto ? null : p
+                            )
+                          }                     
                         >
                           {selected?.idPresupuesto === p.idPresupuesto ? 'Ocultar' : 'Ver Detalle'}
                         </button>
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={7} className="empty-state">
-                      {searchQuery || filter !== 'all'
-                        ? 'No se encontraron presupuestos con ese criterio'
-                        : 'No hay presupuestos registrados'}
-                    </td>
-                  </tr>
-                )}
+                   
+                    {selected?.idPresupuesto === p.idPresupuesto && (
+                      <tr className="detalle-row">
+                        <td colSpan={6} className="detalle-cell">
+                          <PresupuestoCard
+                            presupuesto={p}
+                            onActualizarEstado={handleActualizarEstado}
+                          />
+                          {p.estado === 'pendiente' && (
+                            <div className="acciones-presupuesto">
+                              
+                               <button className='btn btn-outline-primary btn-sm'
+                                onClick={() => handleActualizarEstado(p.idPresupuesto, 'aprobado')}
+                              >
+                                Aceptar Presupuesto
+                              </button>
+                              <button className='btn btn-outline-primary btn-sm'
+                              
+                                onClick={() => handleActualizarEstado(p.idPresupuesto, 'cancelado')}
+                              >
+                                Cancelar Presupuesto
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    )}
+                  </>
+                  ))}
+
               </tbody>
+                 <tr>
+                   <td colSpan={7} className="empty-state">
+                    {searchQuery || filter !== 'all'
+              //           ? 'No se encontraron presupuestos con ese criterio'
+              //           : 'No hay presupuestos registrados'}
+                   } 
+                   </td>
+                 </tr>
             </table>
           </div>
         </div>
-
-        {selected && (
-          <div className="detail-section">
-            <div className="detail-header">
-              <h3>Detalle del Presupuesto #{selected.idPresupuesto}</h3>
-              <button onClick={() => setSelected(null)}>✕ Cerrar</button>
-            </div>
-
-            {/* Usamos la card como un contenedor */}
-            <PresupuestoCard presupuesto={selected} onActualizarEstado={handleActualizarEstado}>
-              {/* Todo lo que pongas aquí adentro es el "children" */}
-              {selected.estado.toLowerCase() === 'pendiente' && (
-                <div className="d-flex gap-2">
-                  <button
-                    className="btn btn-success flex-grow-1"
-                    onClick={() => handleActualizarEstado(selected.idPresupuesto, 'aprobado')}
-                  >
-                    Aceptar Presupuesto
-                  </button>
-                  <button
-                    className="btn btn-danger flex-grow-1"
-                    onClick={() => handleActualizarEstado(selected.idPresupuesto, 'cancelado')}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              )}
-            </PresupuestoCard>
-          </div>
-        )}
       </div>
     </div>
   );
