@@ -42,7 +42,7 @@ export async function login(credentials: Credentials): Promise<Cliente & { token
 
 export async function logout() {
   if (USE_MOCKS) return true;
-  await axios.post('/auth/logout');
+  await axios.post('api/usuarios/logout');
   return true;
 }
 
