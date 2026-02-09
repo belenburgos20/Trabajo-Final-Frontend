@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Producto } from '../../types/Producto';
 import { useProductos } from '../../hooks';
 import type { NuevoProducto } from '../../types/Producto';
+import { getProductImageUrl } from '../../utils/productImage';
 import '../../../public/assets/css/admin/Productos.css';
 
 export default function ProductosAdmin() {
@@ -243,15 +244,23 @@ export default function ProductosAdmin() {
           {filteredProductos.length > 0 ? (
             filteredProductos.map((p) => (
               <div key={p.idProducto} className="product-admin-card">
-                {p.imagen ? (
-                  <div className="product-image">
-                    <img src={p.imagen} alt={p.nombre} />
-                  </div>
-                ) : (
-                  <div className="product-image no-image">
-                    <span>📦</span>
-                  </div>
-                )}
+                <div className="product-image">
+                  <img
+                    src={getProductImageUrl(p)}
+                    alt={p.nombre}
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      target.style.display = 'none';
+                      const parent = target.closest('.product-image');
+                      if (parent && !parent.querySelector('.product-image-fallback')) {
+                        const fallback = document.createElement('div');
+                        fallback.className = 'product-image no-image product-image-fallback';
+                        fallback.innerHTML = '<span>📦</span>';
+                        parent.appendChild(fallback);
+                      }
+                    }}
+                  />
+                </div>
                 <div className="product-content">
                   <div className="product-header">
                     <h4>{p.nombre}</h4>

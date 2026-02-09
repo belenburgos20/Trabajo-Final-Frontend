@@ -1,4 +1,5 @@
 import { type Producto } from '../../types/Producto';
+import { getProductImageUrl } from '../../utils/productImage';
 
 interface Props {
   producto: Producto;
@@ -29,14 +30,20 @@ export default function ProductCard({
         onClick={onClick}
         style={{ cursor: onClick ? 'pointer' : 'default' }}
       >
-        {producto.imagen ? (
-          <img src={producto.imagen} alt={producto.nombre} />
-        ) : (
-          <div className="product-card-no-image">
-            <span>📦</span>
-            <p>Sin imagen</p>
-          </div>
-        )}
+        <img
+          src={getProductImageUrl(producto)}
+          alt={producto.nombre}
+          onError={(e) => {
+            const target = e.currentTarget;
+            target.style.display = 'none';
+            const fallback = target.nextElementSibling as HTMLElement;
+            if (fallback) fallback.style.display = 'flex';
+          }}
+        />
+        <div className="product-card-no-image" style={{ display: 'none' }}>
+          <span>📦</span>
+          <p>Sin imagen</p>
+        </div>
         {producto.stock < 10 && <div className="product-stock-badge">Stock bajo</div>}
       </div>
 
