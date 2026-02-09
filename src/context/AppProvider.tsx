@@ -7,7 +7,12 @@ interface AppProviderProps {
 }
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUserState] = useState<User | null>(null);
+
+  const setUser = (newUser: User | null) => {
+    console.log('setUser llamado con:', newUser); // Log para verificar los datos pasados a setUser
+    setUserState(newUser);
+  };
 
   useEffect(() => {
     try {

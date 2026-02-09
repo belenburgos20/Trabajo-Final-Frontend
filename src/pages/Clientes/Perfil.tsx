@@ -40,6 +40,12 @@ export default function Perfil() {
 
   const guardar = async () => {
     if (!usuario) return;
+    if (!usuario.id || isNaN(Number(usuario.id))) {
+      console.error('El ID del usuario no es válido o no está definido:', usuario.id);
+      setMessage('El ID del usuario no es válido o no está definido.');
+      return;
+    }
+
     setSaving(true);
     setMessage(null);
     try {
@@ -50,6 +56,9 @@ export default function Perfil() {
         localidad: usuario.localidad,
         password: usuario.password,
       } as Partial<typeof usuario>;
+
+      console.log('Enviando datos al backend:', { id: usuario.id, payload });
+
       const updated = await updateCliente(usuario.id, payload);
       if (updated) {
         setUsuario(updated);
@@ -92,10 +101,6 @@ export default function Perfil() {
         <section className="section mx-auto" style={{ maxWidth: '500px' }}>
           <h1 className="text-primary mb-4 text-center">Mi perfil</h1>
           <div className="d-flex flex-column gap-3">
-            <div>
-              <label className="form-label">ID</label>
-              <input name="id" value={usuario.id} className="form-control" readOnly />
-            </div>
             <div>
               <label className="form-label">Nombre</label>
               <input name="nombre" value={usuario.nombre ?? ''} className="form-control" readOnly />

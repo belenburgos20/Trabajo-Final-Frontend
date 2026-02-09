@@ -28,6 +28,14 @@ export default function PresupuestoCard({ presupuesto, children }: Props) {
     }
   };
 
+  const toggleDetalle = async () => {
+    if (mostrarDetalle) {
+      setMostrarDetalle(false);
+    } else {
+      await cargarDetalle();
+    }
+  };
+
   return (
     <div className="card shadow-sm rounded mb-3">
       <div className="card-body">
@@ -44,19 +52,18 @@ export default function PresupuestoCard({ presupuesto, children }: Props) {
         </p>
         <button
           className="btn btn-outline-primary btn-sm"
-          onClick={cargarDetalle}
+          onClick={toggleDetalle}
           disabled={loading}
         >
-          {loading ? 'Cargando...' : 'Ver detalle'}
+          {loading ? 'Cargando...' : mostrarDetalle ? 'Ocultar detalle' : 'Ver detalle'}
         </button>
         {mostrarDetalle && (
           <>
-          <hr />
+            <hr />
             <h6>Detalle</h6>
             {detalle.length === 0 && <p>No hay productos.</p>}
             {detalle.map((item) => (
-              <div key={item.idDetallePresupuesto}
-               className="border-bottom py-2">
+              <div key={item.idDetallePresupuesto} className="border-bottom py-2">
                 <p className="mb-1">
                   <strong>Producto:</strong> {item.nombreProducto}
                 </p>

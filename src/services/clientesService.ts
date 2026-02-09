@@ -15,10 +15,10 @@ export async function getClienteById(id: number): Promise<Cliente> {
 
   const data = response.data;
 
-  // Mapear idUsuario a id
+  // Usar directamente el campo 'id' en lugar de 'idUsuario'
   return {
     ...data,
-    id: data.idUsuario, // Mapear idUsuario a id
+    id: data.id, // Usar directamente el campo 'id' en lugar de 'idUsuario'
   };
 }
 
@@ -44,7 +44,7 @@ export async function actualizarCliente(id: number, data: UpdateCliente): Promis
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data;
+  return response.data.usuario; // Devolver solo el objeto del usuario actualizado
 }
 
 export async function listarClientes(): Promise<Cliente[]> {

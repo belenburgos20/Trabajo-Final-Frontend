@@ -14,7 +14,7 @@ export default function PresupuestosHistorial() {
       idUsuario: presupuesto.idUsuario,
       fecha: presupuesto.fecha_creacion,
       detalle: [],
-      montoTotal: presupuesto.montoTotal || 0,
+      montoTotal: Number(presupuesto.monto_total) || 0,
       estado: presupuesto.estado || 'desconocido',
     };
   };
