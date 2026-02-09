@@ -50,7 +50,7 @@ export default function Dashboard() {
   const presupuestosPendientes = presupuestos.filter((p) => p.estado === 'pendiente').length;
   const presupuestosAprobados = presupuestos.filter((p) => p.estado === 'aprobado').length;
   const presupuestosCancelados = presupuestos.filter((p) => p.estado === 'cancelado').length;
-  const totalMonto = presupuestos.reduce((sum, p) => sum + p.montoTotal, 0);
+  const totalMonto = presupuestos.filter(p => p.estado?.toLowerCase() === "aprobado").reduce((sum, p) => sum + p.montoTotal, 0);
   const clientesActivos = clientes.filter((c) => !c.esAdmin).length;
   const admins = clientes.filter((c) => c.esAdmin).length;
 
@@ -167,7 +167,7 @@ export default function Dashboard() {
             <div className="recent-list">
               {ultimosPresupuestos.length > 0 ? (
                 ultimosPresupuestos.map((pres) => (
-                  <div key={pres.idPresupuesto} className="recent-item">
+                  <Link to={`/admin/presupuestos/`} key={pres.idPresupuesto} className="recent-item">
                     <div className="recent-item-content">
                       <h4>Presupuesto #{pres.idPresupuesto}</h4>
                       <p>Cliente ID: {pres.idUsuario} • ${pres.montoTotal.toLocaleString()}</p>
@@ -176,7 +176,7 @@ export default function Dashboard() {
                     <span className={`status-badge status-${pres.estado}`}>
                       {pres.estado}
                     </span>
-                  </div>
+                    </Link>
                 ))
               ) : (
                 <p className="empty-state">No hay presupuestos recientes</p>

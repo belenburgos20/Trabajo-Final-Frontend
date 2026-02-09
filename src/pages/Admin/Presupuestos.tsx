@@ -35,7 +35,7 @@ export default function PresupuestosAdmin() {
 
   const presupuestosPendientes = presupuestos.filter((p) => p.estado === 'pendiente').length;
   const presupuestosAprobados = presupuestos.filter((p) => p.estado === 'aprobado').length;
-  const totalMonto = presupuestos.reduce((sum, p) => sum + p.montoTotal, 0);
+  const totalMonto = presupuestos.filter(p => p.estado?.toLowerCase() === "aprobado").reduce((sum, p) => sum + p.montoTotal, 0);
 
   if (isLoading) {
     return (
