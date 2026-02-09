@@ -65,8 +65,6 @@ export default function ProductosList() {
         }
       }
 
-      console.log('Carrito actualizado:', nuevo); // Depuración del estado del carrito
-
       localStorage.setItem('carrito', JSON.stringify(nuevo));
       return nuevo;
     });

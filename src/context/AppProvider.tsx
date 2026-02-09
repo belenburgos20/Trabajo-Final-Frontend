@@ -10,7 +10,6 @@ export function AppProvider({ children }: AppProviderProps) {
   const [user, setUserState] = useState<User | null>(null);
 
   const setUser = (newUser: User | null) => {
-    console.log('setUser llamado con:', newUser); // Log para verificar los datos pasados a setUser
     setUserState(newUser);
   };
 
@@ -18,7 +17,6 @@ export function AppProvider({ children }: AppProviderProps) {
     try {
       localStorage.removeItem('user'); // Limpieza forzada de localStorage al cargar la aplicación
       const raw = localStorage.getItem('user');
-      console.log('Contenido de localStorage (user):', raw);
       if (raw) {
         const parsed = JSON.parse(raw);
 

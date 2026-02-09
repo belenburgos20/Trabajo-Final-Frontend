@@ -32,8 +32,6 @@ export function useAuthWithContext() {
     const cliente = await authLogin(email, password);
 
     if (cliente) {
-      console.log('ID recibido del backend:', cliente.id);
-
       // Transformar Cliente a User (formato del contexto)
       const userForContext = {
         id: String(cliente.id),
@@ -42,35 +40,25 @@ export function useAuthWithContext() {
         esAdmin: cliente.esAdmin, // Asegurarse de incluir la propiedad esAdmin
       };
 
-      console.log('Usuario esAdmin (después de transformación):', userForContext.esAdmin);
-
       // Guardar en contexto
       setUser(userForContext);
 
       // Persistir en localStorage
       localStorage.setItem('user', JSON.stringify(userForContext));
 
-      console.log('Cliente recibido del backend:', cliente);
-      console.log('Token recibido:', cliente.token);
-
       // Guardar el token en localStorage
       if (cliente.token) {
         localStorage.setItem('token', cliente.token);
-        console.log('Token almacenado en localStorage:', cliente.token);
       } else {
         console.warn('No se recibió un token del backend.');
       }
 
       // Redirigir según tipo de usuario
       if (cliente.esAdmin) {
-        console.log('Redirigiendo a /admin');
         navigate('/admin');
       } else {
-        console.log('Redirigiendo a /clientes');
         navigate('/clientes');
       }
-
-      console.log('Usuario esAdmin:', cliente.esAdmin); // Log agregado para verificar esAdmin
 
       return cliente;
     }
@@ -322,51 +310,3 @@ export function AdminRoute({ children }: { children: React.ReactNode }) {
 
   return isAuthenticated && isAdmin ? <>{children}</> : null;
 }
-
-// ============================================
-// EJEMPLO DE USO EN ROUTING (App.tsx o similar)
-// ============================================
-
-/**
- * Ejemplo de configuración de rutas con protección
- */
-/*
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppProvider } from './context/AppProvider';
-import { ProtectedRoute, AdminRoute } from './hooks/useAuthWithContext';
-
-function App() {
-  return (
-    <AppProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Rutas públicas *\/}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registro" element={<RegistroPage />} />
-          <Route path="/" element={<HomePage />} />
-
-          {/* Rutas protegidas (requieren autenticación) *\/}
-          <Route
-            path="/cliente/*"
-            element={
-              <ProtectedRoute>
-                <ClienteLayout />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Rutas de administrador *\/}
-          <Route
-            path="/admin/*"
-            element={
-              <AdminRoute>
-                <AdminLayout />
-              </AdminRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </AppProvider>
-  );
-}
-*/

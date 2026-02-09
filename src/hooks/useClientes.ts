@@ -41,7 +41,6 @@ export function useClientes(autoFetch = false): UseClientesReturn {
     setError(null);
     try {
       const cliente = await clientesService.getClienteById(id);
-      console.log('Datos obtenidos del backend:', cliente);
       return cliente;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al cargar cliente';

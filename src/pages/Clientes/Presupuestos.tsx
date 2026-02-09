@@ -21,14 +21,12 @@ export default function PresupuestosHistorial() {
 
   useEffect(() => {
     const user = appCtx?.user;
-    console.log('Usuario en contexto:', user); // Log para verificar el usuario en el contexto
     if (user?.id) {
       const userId = Number(user.id);
       if (isNaN(userId)) {
         console.error('ID del usuario no es un número válido:', user.id);
         return;
       }
-      console.log('ID del usuario válido:', user.id);
       fetchPresupuestosPorUsuario(userId.toString());
     } else {
       console.error('ID de usuario no definido en el contexto'); // Log de error si el ID no está definido
@@ -56,7 +54,7 @@ export default function PresupuestosHistorial() {
               <PresupuestoCard
                 key={p.idPresupuesto}
                 presupuesto={p}
-              //  onActualizarEstado={handleActualizarEstado}
+                //  onActualizarEstado={handleActualizarEstado}
               />
             ))}
           </div>

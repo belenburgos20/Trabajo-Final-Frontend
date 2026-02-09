@@ -8,8 +8,6 @@ interface Credentials {
 }
 
 export async function login(credentials: Credentials): Promise<Cliente & { token: string }> {
-  console.log('Datos enviados al backend:', credentials);
-
   if (USE_MOCKS) {
     const clientes = await mock.listarClientesMock();
     const user = clientes.find(
@@ -25,10 +23,6 @@ export async function login(credentials: Credentials): Promise<Cliente & { token
     email: credentials.email,
     password: credentials.password, // Cambiado de 'contraseña' a 'password'
   });
-
-  console.log('Respuesta completa del backend:', res.data);
-  console.log('Datos procesados en authService antes de devolver al frontend:', res.data); // Log para verificar el contenido de la respuesta del backend
-
   // Devolver el token junto con los datos del cliente
   return {
     id: res.data.id, // Cambiado de 'idusuario' a 'id'

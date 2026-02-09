@@ -38,7 +38,6 @@ export default function PresupuestoCard({ presupuesto, children }: Props) {
   };
 
   const descargarPDF = async () => {
-    console.log('ID del presupuesto para descargar PDF:', presupuesto.idPresupuesto);
     try {
       setLoading(true);
       const pdfBlob = await presupuestosService.getPDF(presupuesto.idPresupuesto);

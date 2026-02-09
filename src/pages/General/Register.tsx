@@ -81,14 +81,6 @@ export default function Register() {
       }
 
       const usuario = created.usuario; // Acceder correctamente a los datos del usuario
-      console.log('Usuario creado:', created); // Log para verificar el objeto creado
-      console.log('Contexto antes de actualizar:', appCtx); // Log para verificar el contexto antes de actualizar
-      console.log('Datos de usuario antes de setUser:', {
-        id: String(usuario.id),
-        name: usuario.nombre,
-        email: usuario.email,
-        esAdmin: usuario.esAdmin,
-      });
       if (appCtx && appCtx.setUser) {
         appCtx.setUser({
           id: String(usuario.id),

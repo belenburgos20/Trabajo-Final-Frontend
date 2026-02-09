@@ -47,7 +47,6 @@ export default function Carrito() {
       setMessage('Usuario no autenticado');
       return;
     }
-    console.log('Usuario en contexto:', user);
 
     // Validar que todos los productos tengan un id válido
     if (carrito.some((p) => !p.idproducto || p.idproducto <= 0)) {
@@ -69,8 +68,6 @@ export default function Carrito() {
       estado: 'pendiente',
       detalle,
     };
-
-    console.log('Datos enviados al backend:', payload);
 
     const resultado = await createPresupuesto(payload);
     if (resultado) {

@@ -41,7 +41,6 @@ export default function Perfil() {
   const guardar = async () => {
     if (!usuario) return;
     if (!usuario.id || isNaN(Number(usuario.id))) {
-      console.error('El ID del usuario no es válido o no está definido:', usuario.id);
       setMessage('El ID del usuario no es válido o no está definido.');
       return;
     }
@@ -56,8 +55,6 @@ export default function Perfil() {
         localidad: usuario.localidad,
         password: usuario.password,
       } as Partial<typeof usuario>;
-
-      console.log('Enviando datos al backend:', { id: usuario.id, payload });
 
       const updated = await updateCliente(usuario.id, payload);
       if (updated) {
