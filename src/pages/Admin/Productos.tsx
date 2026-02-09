@@ -17,6 +17,7 @@ export default function ProductosAdmin() {
     precio: 0,
   });
   const [creating, setCreating] = useState(false);
+  const [editingStock, setEditingStock] = useState<number>(0);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingPrice, setEditingPrice] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,14 +27,17 @@ export default function ProductosAdmin() {
     setNewProduct((prev) => ({
       ...prev,
       [name]:
-        name === 'idCategoria' || name === 'stock' || name === 'precio' ? Number(value) : value,
+        name === 'id_categoria' || name === 'stock' || name === 'precio' ? Number(value) : value,
     }));
   };
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     setCreating(true);
-    const created = await createProducto(newProduct);
+    const created = await createProducto({
+      ...newProduct,
+      id_categoria: newProduct.idCategoria, // Cambiar el nombre del campo para coincidir con el backend
+    });
     if (created) {
       setNewProduct({ nombre: '', descripcion: '', idCategoria: 1, stock: 0, precio: 0 });
       setShowForm(false);
@@ -49,16 +53,27 @@ export default function ProductosAdmin() {
   const startEdit = (p: Producto) => {
     setEditingId(p.idProducto);
     setEditingPrice(p.precio);
+    setEditingStock(p.stock);
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setEditingPrice(0);
+    setEditingStock(0);
   };
 
   const savePrice = async () => {
     if (editingId == null) return;
     const updated = await updateProducto(String(editingId), { precio: editingPrice });
+    if (updated) {
+      await fetchProductos();
+    }
+    cancelEdit();
+  };
+
+  const saveStock = async () => {
+    if (editingId == null) return;
+    const updated = await updateProducto(String(editingId), { stock: editingStock });
     if (updated) {
       await fetchProductos();
     }
@@ -240,32 +255,28 @@ export default function ProductosAdmin() {
                   </div>
                   <div className="product-price-section">
                     {editingId === p.idProducto ? (
-                      <div className="price-edit">
+                      <div className="edit-stock">
                         <input
                           type="number"
-                          value={editingPrice}
-                          onChange={(e) => setEditingPrice(Number(e.target.value))}
-                          className="price-input"
+                          value={editingStock}
+                          onChange={(e) => setEditingStock(Number(e.target.value))}
+                          className="form-input"
                           min="0"
-                          step="0.01"
                         />
-                        <button className="btn btn-sm btn-success" onClick={savePrice}>
-                          ✓
+                        <button className="btn btn-sm btn-primary" onClick={saveStock}>
+                          Guardar Stock
                         </button>
-                        <button className="btn btn-sm btn-outline-primary" onClick={cancelEdit}>
-                          ✕
+                        <button className="btn btn-sm btn-secondary" onClick={cancelEdit}>
+                          Cancelar
                         </button>
                       </div>
                     ) : (
-                      <div className="price-display">
-                        <span className="price-value">${p.precio.toLocaleString()}</span>
-                        <button
-                          className="btn btn-sm btn-outline-primary"
-                          onClick={() => startEdit(p)}
-                        >
-                          Editar
-                        </button>
-                      </div>
+                      <button
+                        className="btn btn-sm btn-warning edit-stock-btn"
+                        onClick={() => startEdit(p)}
+                      >
+                        ✏️ Editar Stock
+                      </button>
                     )}
                   </div>
                   <button

@@ -151,16 +151,6 @@ export default function Perfil() {
             </div>
 
             <div>
-              <label className="form-label">Administrador</label>
-              <input
-                name="esAdmin"
-                value={usuario.esAdmin ? 'Sí' : 'No'}
-                className="form-control"
-                readOnly
-              />
-            </div>
-
-            <div>
               <label className="form-label">Contraseña</label>
               <input
                 name="password"

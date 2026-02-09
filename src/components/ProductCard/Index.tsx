@@ -66,7 +66,6 @@ export default function ProductCard({
               className="btn-quantity btn-quantity-minus"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Botón - clicado para producto:', producto);
                 onRemove();
               }}
               disabled={cantidad === 0}
@@ -79,7 +78,6 @@ export default function ProductCard({
               className="btn-quantity btn-quantity-plus"
               onClick={(e) => {
                 e.stopPropagation();
-                console.log('Botón + clicado para producto:', producto);
                 onAdd();
               }}
               title="Aumentar cantidad"

@@ -48,7 +48,7 @@ export default function PresupuestoCard({ presupuesto, children }: Props) {
       link.setAttribute('download', `presupuesto_${presupuesto.idPresupuesto}.pdf`);
       document.body.appendChild(link);
       link.click();
-      link.parentNode.removeChild(link);
+      link.parentNode?.removeChild(link);
     } catch (error) {
       console.error('Error al descargar el PDF:', error);
     } finally {

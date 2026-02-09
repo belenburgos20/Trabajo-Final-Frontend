@@ -34,14 +34,17 @@ export async function crearProducto(data: NuevoProducto): Promise<Producto> {
   return response.data;
 }
 
-export async function actualizarProducto(codigo: string, data: UpdateProducto): Promise<Producto> {
-  if (USE_MOCKS) return (await mock.actualizarProductoMock(codigo, data)) as Producto;
-  const response = await axios.put(`${API_URL}/${codigo}`, data);
+export async function actualizarProducto(
+  idproducto: number,
+  data: UpdateProducto
+): Promise<Producto> {
+  if (USE_MOCKS) return (await mock.actualizarProductoMock(idproducto, data)) as Producto;
+  const response = await axios.put(`${API_URL}/${idproducto}`, data);
   return response.data;
 }
 
-export async function eliminarProducto(codigo: string): Promise<{ message: string }> {
-  if (USE_MOCKS) return mock.eliminarProductoMock(codigo);
-  const response = await axios.delete(`${API_URL}/${codigo}`);
+export async function eliminarProducto(idproducto: number): Promise<{ message: string }> {
+  if (USE_MOCKS) return mock.eliminarProductoMock(idproducto);
+  const response = await axios.delete(`${API_URL}/${idproducto}`);
   return response.data;
 }
