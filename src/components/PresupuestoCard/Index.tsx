@@ -1,6 +1,7 @@
 import { type Presupuesto } from '../../types/Presupuesto';
 import { useState } from 'react';
 import { getPresupuestoById } from '../../services/presupestosService';
+import { presupuestosService } from '../../services/presupuestosService';
 
 interface Props {
   presupuesto: Presupuesto;
@@ -36,6 +37,25 @@ export default function PresupuestoCard({ presupuesto, children }: Props) {
     }
   };
 
+  const descargarPDF = async () => {
+    console.log('ID del presupuesto para descargar PDF:', presupuesto.idPresupuesto);
+    try {
+      setLoading(true);
+      const pdfBlob = await presupuestosService.getPDF(presupuesto.idPresupuesto);
+      const url = window.URL.createObjectURL(new Blob([pdfBlob], { type: 'application/pdf' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `presupuesto_${presupuesto.idPresupuesto}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error('Error al descargar el PDF:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="card shadow-sm rounded mb-3">
       <div className="card-body">
@@ -56,6 +76,13 @@ export default function PresupuestoCard({ presupuesto, children }: Props) {
           disabled={loading}
         >
           {loading ? 'Cargando...' : mostrarDetalle ? 'Ocultar detalle' : 'Ver detalle'}
+        </button>
+        <button
+          className="btn btn-outline-success btn-sm mt-2"
+          onClick={descargarPDF}
+          disabled={loading}
+        >
+          {loading ? 'Descargando...' : 'Descargar PDF'}
         </button>
         {mostrarDetalle && (
           <>

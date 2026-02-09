@@ -1,7 +1,7 @@
-import { api } from "./api";
-import { type Presupuesto } from "../types/Presupuesto";
+import { api } from './api';
+import { type Presupuesto } from '../types/Presupuesto';
 
-const ENDPOINT = "/presupuestos";
+const ENDPOINT = '/api/presupuestos';
 
 export const presupuestosService = {
   getAll: async (): Promise<Presupuesto[]> => {
@@ -26,5 +26,16 @@ export const presupuestosService = {
 
   delete: async (id: number): Promise<void> => {
     await api.delete(`${ENDPOINT}/${id}`);
+  },
+
+  getPDF: async (id: number): Promise<Blob> => {
+    const token = localStorage.getItem('token'); // Obtener el token del almacenamiento local
+    const res = await api.get(`${ENDPOINT}/${id}/pdf`, {
+      responseType: 'blob',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
   },
 };
