@@ -19,6 +19,7 @@ export default function ProductosAdmin() {
   const [creating, setCreating] = useState(false);
   const [editingStock, setEditingStock] = useState<number>(0);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingField, setEditingField] = useState<'stock' | 'price' | null>(null);
   const [editingPrice, setEditingPrice] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -50,14 +51,23 @@ export default function ProductosAdmin() {
     await deleteProducto(String(id));
   };
 
-  const startEdit = (p: Producto) => {
+  const startEditStock = (p: Producto) => {
     setEditingId(p.idProducto);
+    setEditingField('stock');
+    setEditingStock(p.stock);
+    setEditingPrice(p.precio);
+  };
+
+  const startEditPrice = (p: Producto) => {
+    setEditingId(p.idProducto);
+    setEditingField('price');
     setEditingPrice(p.precio);
     setEditingStock(p.stock);
   };
 
   const cancelEdit = () => {
     setEditingId(null);
+    setEditingField(null);
     setEditingPrice(0);
     setEditingStock(0);
   };
@@ -253,8 +263,41 @@ export default function ProductosAdmin() {
                   <div className="product-category">
                     Categoría: {p.categoria_nombre || 'Sin categoría'}
                   </div>
+                  <div className="product-price-display">
+                    <strong>Precio:</strong>{' '}
+                    {editingId === p.idProducto && editingField === 'price' ? (
+                      <div className="edit-inline">
+                        <input
+                          type="number"
+                          value={editingPrice}
+                          onChange={(e) => setEditingPrice(Number(e.target.value))}
+                          className="form-input input-price"
+                          min="0"
+                          step="0.01"
+                        />
+                        <button className="btn btn-sm btn-primary" onClick={savePrice}>
+                          Guardar
+                        </button>
+                        <button className="btn btn-sm btn-secondary" onClick={cancelEdit}>
+                          Cancelar
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="product-price-value">
+                          $ {typeof p.precio === 'number' ? p.precio.toLocaleString('es-AR') : p.precio}
+                        </span>
+                        <button
+                          className="btn btn-sm btn-outline edit-price-btn"
+                          onClick={() => startEditPrice(p)}
+                        >
+                          ✏️ Editar precio
+                        </button>
+                      </>
+                    )}
+                  </div>
                   <div className="product-price-section">
-                    {editingId === p.idProducto ? (
+                    {editingId === p.idProducto && editingField === 'stock' ? (
                       <div className="edit-stock">
                         <input
                           type="number"
@@ -273,7 +316,7 @@ export default function ProductosAdmin() {
                     ) : (
                       <button
                         className="btn btn-sm btn-warning edit-stock-btn"
-                        onClick={() => startEdit(p)}
+                        onClick={() => startEditStock(p)}
                       >
                         ✏️ Editar Stock
                       </button>

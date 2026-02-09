@@ -302,6 +302,58 @@
   font-style: italic;
 }
 
+.product-price-display {
+  margin-bottom: 16px;
+  padding-top: 12px;
+  border-top: 1px solid #e6eef6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-price-display strong {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.product-price-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.edit-price-btn {
+  margin-left: auto;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-price-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.edit-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.edit-inline .input-price {
+  max-width: 120px;
+  padding: 6px 10px;
+  font-size: 1rem;
+}
+
 .product-price-section {
   margin-bottom: 16px;
   padding-top: 16px;
