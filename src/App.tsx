@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import '../public/assets/css/App.css';
 
 // Layouts
 import GeneralLayout from './layouts/GeneralLayout/Index';
@@ -10,6 +10,8 @@ import AdminLayout from './layouts/AdminLayout/Index';
 import Home from './pages/General/Home';
 import Contact from './pages/General/Contact';
 import Login from './pages/General/Login';
+import LoginCliente from './pages/General/LoginCliente';
+import LoginAdmin from './pages/General/LoginAdmin';
 import Register from './pages/General/Register';
 
 // Clientes pages
@@ -33,6 +35,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/login-cliente" element={<LoginCliente />} />
+          <Route path="/login-admin" element={<LoginAdmin />} />
           <Route path="/register" element={<Register />} />
         </Route>
 

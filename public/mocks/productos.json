@@ -1,29 +1,82 @@
 [
   {
     "idProducto": 1,
-    "nombre": "Bomba hidráulica",
-    "descripcion": "Bomba de alta presión para uso industrial",
-    "idCategoria": { "idCategoria": 1, "nombre": "Hidráulica" },
-    "stock": 10,
-    "precio": 12000,
-    "imagen": "/assets/bombas-hidraulicas.jpg"
+    "nombre": "MANGUERA MP 1\"",
+    "descripcion": "MANGUERA MP 1\"",
+    "idCategoria": 1,
+    "stock": 15,
+    "precio": 15500,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
   },
   {
     "idProducto": 2,
-    "nombre": "Cilindro de pistón",
-    "descripcion": "Cilindro para aplicaciones industriales",
-    "idCategoria": { "idCategoria": 1, "nombre": "Hidráulica" },
-    "stock": 5,
-    "precio": 8000,
-    "imagen": "/assets/cilindro-de-piston.jpg"
+    "nombre": "MANGUERA MP 3/4",
+    "descripcion": "MANGUERA MP 3/4",
+    "idCategoria": 1,
+    "stock": 20,
+    "precio": 12300,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
   },
   {
     "idProducto": 3,
-    "nombre": "Manguera reforzada",
-    "descripcion": "Manguera flexible reforzada con malla metálica",
-    "idCategoria": { "idCategoria": 2, "nombre": "Accesorios" },
-    "stock": 20,
-    "precio": 3000,
-    "imagen": "/assets/manguera-reforzada.jpg"
+    "nombre": "MANGUERA HIDR. 1\" R12",
+    "descripcion": "MANGUERA HIDR. 1\" R12",
+    "idCategoria": 1,
+    "stock": 12,
+    "precio": 33900,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
+  },
+  {
+    "idProducto": 4,
+    "nombre": "MANGUERA HIDR. 3/4 R12",
+    "descripcion": "MANGUERA HIDR. 3/4 R12",
+    "idCategoria": 1,
+    "stock": 18,
+    "precio": 24800,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
+  },
+  {
+    "idProducto": 5,
+    "nombre": "MANGUERA HIDR. 1/2 R2 AT",
+    "descripcion": "MANGUERA HIDR. 1/2 R2 AT",
+    "idCategoria": 1,
+    "stock": 25,
+    "precio": 8700,
+    "imagen": "/assets/images/manguera-reforzada.jpg"
+  },
+  {
+    "idProducto": 6,
+    "nombre": "MF 1/4 NPT p/ 1/4",
+    "descripcion": "MF 1/4 NPT p/ 1/4",
+    "idCategoria": 2,
+    "stock": 30,
+    "precio": 3750,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 7,
+    "nombre": "MF 3/8 NPT p/ 3/8",
+    "descripcion": "MF 3/8 NPT p/ 3/8",
+    "idCategoria": 2,
+    "stock": 28,
+    "precio": 6000,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 8,
+    "nombre": "MF 1/2 NPT p/ 1/2",
+    "descripcion": "MF 1/2 NPT p/ 1/2",
+    "idCategoria": 2,
+    "stock": 22,
+    "precio": 7050,
+    "imagen": "/assets/images/Terminales.jpg"
+  },
+  {
+    "idProducto": 9,
+    "nombre": "MF 3/4 NPT p/ 3/4",
+    "descripcion": "MF 3/4 NPT p/ 3/4",
+    "idCategoria": 2,
+    "stock": 15,
+    "precio": 11400
   }
 ]

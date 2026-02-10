@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id: number | string;
   name?: string;
   email: string;
   esAdmin?: boolean;

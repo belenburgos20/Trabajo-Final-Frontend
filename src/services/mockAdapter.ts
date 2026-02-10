@@ -1,7 +1,7 @@
 import type { Producto, NuevoProducto, UpdateProducto } from '../types/Producto';
 import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto } from '../types/Presupuesto';
 import type { Cliente, NuevoCliente, UpdateCliente } from '../types/Cliente';
-import type { Categoria } from '../types/Categoria';
+//import type { Categoria } from '../types/Categoria';
 import type { DetallePresupuesto } from '../types/DetallePresupuesto';
 
 let productosCache: Producto[] | null = null;
@@ -54,7 +54,7 @@ export async function getProductoByCodigoMock(codigo: string): Promise<Producto 
 export async function getProductosPorCategoriaMock(idCategoria: string): Promise<Producto[]> {
   const productos = await loadProductos();
   const idNum = Number(idCategoria);
-  return productos.filter((p) => p.idCategoria?.idCategoria === idNum);
+  return productos.filter((p) => p.idCategoria === idNum); // Ajustar para tratar idCategoria como número
 }
 
 export async function getProductoPorNombreMock(nombre: string): Promise<Producto[]> {
@@ -69,7 +69,7 @@ export async function crearProductoMock(data: NuevoProducto): Promise<Producto> 
     idProducto: productos.length ? Math.max(...productos.map((p) => p.idProducto)) + 1 : 1,
     nombre: data.nombre,
     descripcion: data.descripcion || '',
-    idCategoria: { idCategoria: data.idCategoria, nombre: 'Sin categoría' } as Categoria,
+    idCategoria: data.idCategoria, // Ajustar para tratar idCategoria como número
     stock: data.stock || 0,
     precio: data.precio || 0,
     imagen: '',

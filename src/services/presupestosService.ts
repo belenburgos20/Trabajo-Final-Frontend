@@ -1,8 +1,8 @@
 import axios, { USE_MOCKS } from './https';
-import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto } from '../types/Presupuesto';
+import type { Presupuesto, NuevoPresupuesto, UpdatePresupuesto, CrearPresupuestoResponse } from '../types/Presupuesto';
 import * as mock from './mockAdapter';
 
-const API_URL = '/presupuesto';
+const API_URL = '/presupuestos';
 
 export async function getPresupuestos(): Promise<Presupuesto[]> {
   if (USE_MOCKS) return mock.getPresupuestosMock();
@@ -12,7 +12,12 @@ export async function getPresupuestos(): Promise<Presupuesto[]> {
 
 export async function getPresupuestoById(id: string): Promise<Presupuesto> {
   if (USE_MOCKS) return (await mock.getPresupuestoByIdMock(id)) as Presupuesto;
-  const response = await axios.get(`${API_URL}/${id}`);
+  const token = localStorage.getItem('token');
+  const response = await axios.get(`${API_URL}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 }
 export async function getPresupuestosPorUsuario(idUsuario: string): Promise<Presupuesto[]> {
@@ -31,7 +36,7 @@ export async function getPresupuestosPorEstado(estado: string): Promise<Presupue
   const response = await axios.get(`${API_URL}/estado/${estado}`);
   return response.data;
 }
-export async function crearPresupuesto(data: NuevoPresupuesto): Promise<Presupuesto> {
+export async function crearPresupuesto(data: NuevoPresupuesto): Promise<CrearPresupuestoResponse> {
   if (USE_MOCKS) return mock.crearPresupuestoMock(data);
   const response = await axios.post(`${API_URL}/`, data);
   return response.data;
@@ -41,8 +46,14 @@ export async function actualizarPresupuesto(
   id: string,
   data: UpdatePresupuesto
 ): Promise<Presupuesto> {
-  if (USE_MOCKS) return (await mock.actualizarPresupuestoMock(id, data)) as Presupuesto;
-  const response = await axios.put(`${API_URL}/${id}`, data);
+  if (USE_MOCKS) {return (await mock.actualizarPresupuestoMock(id, data)) as Presupuesto;}
+  const token= localStorage.getItem('token');
+  const response = await axios.put(`${API_URL}/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return response.data;
 }
 export async function eliminarPresupuesto(id: string): Promise<{ message: string }> {
