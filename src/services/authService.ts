@@ -17,9 +17,7 @@ export async function login(credentials: Credentials): Promise<Cliente & { token
     return { ...user, token: 'mock-token', esAdmin: user.esAdmin } as Cliente & { token: string };
   }
 
-  const API_URL = 'http://localhost:3000/api/auth';
-
-  const res = await axios.post(`${API_URL}/login`, {
+  const res = await axios.post('/auth/login', {
     email: credentials.email,
     password: credentials.password, // Cambiado de 'contraseña' a 'password'
   });
@@ -36,7 +34,7 @@ export async function login(credentials: Credentials): Promise<Cliente & { token
 
 export async function logout() {
   if (USE_MOCKS) return true;
-  await axios.post('api/usuarios/logout');
+  await axios.post('/usuarios/logout');
   return true;
 }
 

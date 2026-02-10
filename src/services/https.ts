@@ -1,10 +1,11 @@
-import axios from 'axios'; // Cambiar a importación compatible con esModuleInterop
+import axios from 'axios';
+import { API_BASE_URL } from '../config/api';
 
 // por defecto usamos mocks en desarrollo para evitar depender del backend
 export const USE_MOCKS = false;
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/api', // cambia al puerto donde corre tu backend si usas API real
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
