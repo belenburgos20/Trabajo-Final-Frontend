@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import Dashboard from '../../../src/pages/Admin/Dashboard';
 
-vi.mock('../../services/productosService', () => ({
+vi.mock('../../../src/services/productosService', () => ({
   getProductos: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock('../../services/presupestosService', () => ({
+vi.mock('../../../src/services/presupestosService', () => ({
   getPresupuestos: vi.fn().mockResolvedValue([]),
 }));
 
-vi.mock('../../services/clientesService', () => ({
+vi.mock('../../../src/services/clientesService', () => ({
   listarClientes: vi.fn().mockResolvedValue([]),
 }));
 

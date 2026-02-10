@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import PresupuestosAdmin from './Presupuestos';
+import PresupuestosAdmin from '../../../src/pages/Admin/Presupuestos';
 
-vi.mock('../../hooks', () => ({
+vi.mock('../../../src/hooks', () => ({
   usePresupuestos: () => ({
     presupuestos: [],
     isLoading: false,

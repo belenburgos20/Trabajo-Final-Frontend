@@ -1,7 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import ProductosList from './Productos';
+import { render, screen } from '@testing-library/react';
+import ProductosList from '../../../src/pages/Clientes/Productos';
 
-vi.mock('../../hooks/useProductos', () => ({
+vi.mock('../../../src/hooks/useProductos', () => ({
   useProductos: () => ({
     productos: [
       { idProducto: 1, idCategoria: 1, nombre: 'Prod 1' },

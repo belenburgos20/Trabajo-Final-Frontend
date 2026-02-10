@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { AppContext } from '../../context/AppContext';
-import PresupuestosHistorial from './Presupuestos';
+import { AppContext } from '../../../src/context/AppContext';
+import PresupuestosHistorial from '../../../src/pages/Clientes/Presupuestos';
 
 const mockUser = { id: 1 } as any;
 
-vi.mock('../../hooks', () => ({
+vi.mock('../../../src/hooks', () => ({
   usePresupuestos: () => ({
     presupuestos: [],
     isLoading: false,

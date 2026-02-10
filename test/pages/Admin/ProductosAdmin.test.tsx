@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import ProductosAdmin from './Productos';
+import ProductosAdmin from '../../../src/pages/Admin/Productos';
 
-vi.mock('../../hooks', () => ({
+vi.mock('../../../src/hooks', () => ({
   useProductos: () => ({
     productos: [],
     isLoading: false,

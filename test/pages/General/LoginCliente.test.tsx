@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
-import LoginCliente from './LoginCliente';
+import LoginCliente from '../../../src/pages/General/LoginCliente';
 
 const mockLogin = vi.fn().mockResolvedValue(null);
 
-vi.mock('../../hooks', () => ({
+vi.mock('../../../src/hooks', () => ({
   useAuthWithContext: () => ({
     login: mockLogin,
     isLoading: false,

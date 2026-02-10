@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import Login from './Login';
+import Login from '../../../src/pages/General/Login';
 
 describe('Página de Login', () => {
   it('muestra los enlaces a login de cliente y admin', () => {
