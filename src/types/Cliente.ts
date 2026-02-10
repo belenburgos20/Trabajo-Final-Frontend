@@ -21,6 +21,7 @@ export interface NuevoCliente {
   telefono?: number;
   localidad?: string;
   esAdmin?: boolean;
+  contraseña?: string; // Agregado para reflejar el uso en UsuariosForm.tsx
 }
 
 export interface UpdateCliente {

@@ -38,7 +38,7 @@ export default function ProductosAdmin() {
     setCreating(true);
     const created = await createProducto({
       ...newProduct,
-      id_categoria: newProduct.idCategoria, // Cambiar el nombre del campo para coincidir con el backend
+      idCategoria: newProduct.idCategoria, // Cambiado para reflejar el tipo correcto
     });
     if (created) {
       setNewProduct({ nombre: '', descripcion: '', idCategoria: 1, stock: 0, precio: 0 });
@@ -294,7 +294,10 @@ export default function ProductosAdmin() {
                     ) : (
                       <>
                         <span className="product-price-value">
-                          $ {typeof p.precio === 'number' ? p.precio.toLocaleString('es-AR') : p.precio}
+                          ${' '}
+                          {typeof p.precio === 'number'
+                            ? p.precio.toLocaleString('es-AR')
+                            : p.precio}
                         </span>
                         <button
                           className="btn btn-sm btn-outline edit-price-btn"

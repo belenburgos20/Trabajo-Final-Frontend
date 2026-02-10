@@ -16,11 +16,11 @@ export default function ProductosModal({
   loading,
   onClose,
   carrito,
-  onActualizarCarrito
+  onActualizarCarrito,
 }: Props) {
   return (
-    <div 
-      className="modal-overlay" 
+    <div
+      className="modal-overlay"
       onClick={onClose}
       style={{
         position: 'fixed',
@@ -33,10 +33,10 @@ export default function ProductosModal({
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1000,
-        padding: '20px'
+        padding: '20px',
       }}
     >
-      <div 
+      <div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -47,33 +47,47 @@ export default function ProductosModal({
           maxHeight: '90vh',
           overflow: 'auto',
           padding: '24px',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '20px',
+          }}
+        >
           <h2 className="text-primary">Producto: {producto.nombre}</h2>
-          <button 
+          <button
             className="btn btn-secondary"
             onClick={onClose}
-            style={{ 
-              border: 'none', 
-              background: 'transparent', 
-              fontSize: '24px', 
+            style={{
+              border: 'none',
+              background: 'transparent',
+              fontSize: '24px',
               cursor: 'pointer',
-              color: 'var(--text)'
+              color: 'var(--text)',
             }}
           >
             ×
           </button>
         </div>
 
-        <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: 'var(--background)', borderRadius: '8px' }}>
+        <div
+          style={{
+            marginBottom: '24px',
+            padding: '16px',
+            backgroundColor: 'var(--background)',
+            borderRadius: '8px',
+          }}
+        >
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
             {producto.imagen && (
               <div style={{ flex: '0 0 200px' }}>
-                <img 
-                  src={producto.imagen} 
-                  alt={producto.nombre} 
+                <img
+                  src={producto.imagen}
+                  alt={producto.nombre}
                   style={{ width: '100%', borderRadius: '8px' }}
                 />
               </div>
@@ -90,7 +104,7 @@ export default function ProductosModal({
               )}
               {producto.idCategoria && (
                 <p style={{ color: 'var(--muted)', marginBottom: '8px' }}>
-                  <strong>Categoría:</strong> {producto.idCategoria.nombre}
+                  <strong>Categoría:</strong> {producto.categoria_nombre}
                 </p>
               )}
               <p style={{ color: 'var(--muted)' }}>
@@ -107,7 +121,7 @@ export default function ProductosModal({
               <span className="badge bg-primary ms-2">{productosRelacionados.length}</span>
             )}
           </h3>
-          
+
           {loading ? (
             <p className="text-center">Cargando productos relacionados...</p>
           ) : productosRelacionados.length === 0 ? (
@@ -134,4 +148,3 @@ export default function ProductosModal({
     </div>
   );
 }
-

@@ -63,13 +63,13 @@ export default function Register() {
     }
 
     const data: NuevoCliente = {
-      nombre: form.nombre || undefined,
       email: form.email,
-      password: form.password,
-      CUIT: form.CUIT || undefined,
-      direccion: form.direccion || undefined,
-      telefono: form.telefono ? Number(form.telefono) : undefined,
-      localidad: form.localidad || undefined,
+      password: form.password, // Asegurarse de que 'password' sea la propiedad correcta
+      nombre: form.nombre,
+      CUIT: form.CUIT,
+      direccion: form.direccion,
+      telefono: Number(form.telefono), // Convertir a número
+      localidad: form.localidad,
       esAdmin: form.esAdmin,
     };
 
@@ -80,13 +80,12 @@ export default function Register() {
         return;
       }
 
-      const usuario = created.usuario; // Acceder correctamente a los datos del usuario
       if (appCtx && appCtx.setUser) {
         appCtx.setUser({
-          id: String(usuario.id),
-          name: usuario.nombre,
-          email: usuario.email,
-          esAdmin: usuario.esAdmin,
+          id: String(created.id), // Acceder directamente a las propiedades del cliente creado
+          name: created.nombre,
+          email: created.email,
+          esAdmin: created.esAdmin,
         });
       }
 

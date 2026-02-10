@@ -13,7 +13,7 @@ export default function UsuarioForm({ onSubmit }: Props) {
     direccion: '',
     telefono: 0,
     localidad: '',
-    contraseña: '',
+    password: '', // Cambiado de 'contraseña' a 'password'
   });
 
   const handleChange = <K extends keyof NuevoCliente>(field: K, value: NuevoCliente[K]) => {
@@ -98,8 +98,8 @@ export default function UsuarioForm({ onSubmit }: Props) {
         <input
           type="password"
           className="form-control"
-          value={form.contraseña}
-          onChange={(e) => handleChange('contraseña', e.target.value)}
+          value={form.password} // Cambiado de 'form.contraseña' a 'form.password'
+          onChange={(e) => handleChange('password', e.target.value)} // Cambiado de 'contraseña' a 'password'
           required
         />
       </div>

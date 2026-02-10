@@ -35,7 +35,7 @@ export async function crearProducto(data: NuevoProducto): Promise<Producto> {
 }
 
 export async function actualizarProducto(
-  idproducto: number,
+  idproducto: string, // Cambiado a string
   data: UpdateProducto
 ): Promise<Producto> {
   if (USE_MOCKS) return (await mock.actualizarProductoMock(idproducto, data)) as Producto;
@@ -43,7 +43,7 @@ export async function actualizarProducto(
   return response.data;
 }
 
-export async function eliminarProducto(idproducto: number): Promise<{ message: string }> {
+export async function eliminarProducto(idproducto: string): Promise<{ message: string }> {
   if (USE_MOCKS) return mock.eliminarProductoMock(idproducto);
   const response = await axios.delete(`${API_URL}/${idproducto}`);
   return response.data;
